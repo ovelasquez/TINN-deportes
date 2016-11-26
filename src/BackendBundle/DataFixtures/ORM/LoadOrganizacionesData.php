@@ -467,10 +467,21 @@ class LoadOrganizacionesData extends AbstractFixture implements OrderedFixtureIn
        $deportesTinn->setAbreviatura("IUTEB");
        $deportesTinn->setLogo("cropped/IUTEB.png");
        $deportesTinn->setRif("G-20002070-9");
-       $deportesTinn->setTelefono("04140993541");
+       $deportesTinn->setTelefono("+58 (414) 099-3541");
        $deportesTinn->setEmail("hernanmarquezesport@gmail.com");
        $deportesTinn->setResponsable("Prof.Hernan Marquez");
        $deportesTinn->setDireccion("Calle Igualdad, entre Progreso y Rosario, Nº 28, Edif. IUTEB, Casco Histórico de Ciudad Bolívar – Edo. Bolívar-Venezuela");
+       $deportesTinn->setCampeonato($this->getReference('campeonato'));  $manager->persist($deportesTinn);
+       
+       $deportesTinn = new Organizaciones();
+       $deportesTinn->setNombre("Universidad Bolivariana de Venezuela");
+       $deportesTinn->setAbreviatura("UBV");
+       $deportesTinn->setLogo("cropped/UBV.png");
+       $deportesTinn->setRif("G-2000");
+       $deportesTinn->setTelefono("+58 (212) 606-3172");
+       $deportesTinn->setEmail("marymontess@gmail.com");
+       $deportesTinn->setResponsable("Mary Montes");
+       $deportesTinn->setDireccion("UBV Los Chaguaramos");
        $deportesTinn->setCampeonato($this->getReference('campeonato'));  $manager->persist($deportesTinn);
 
        
