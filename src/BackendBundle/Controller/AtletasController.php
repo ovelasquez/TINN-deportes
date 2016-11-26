@@ -122,9 +122,10 @@ class AtletasController extends Controller {
 
                             //Guardar Constacia
                             $file = $atleta->getContancia();
+                            if ($file!==NULL){
                             $fileName = $this->get('app.file_uploader_constancia')->upload($file);
                             $atleta->setContancia($fileName);
-
+                            }
                             //Atleta persist
                             $em->persist($atleta);
                             $guardo = true;
