@@ -1,0 +1,50 @@
+{% extends 'gentelella.html.twig' %} 
+{% block title %} Equipos {% endblock %}
+{% block Titulo %} DeportesTINN!!! {% endblock %}
+{% block Subtitulo %} Equipo <small>Ver</small> {% endblock %} 
+{% block cerrar %} href="{{ path('equipos_index')}}" {% endblock %}                
+{% block body %}
+    <div class="col-md-3 col-sm-3 col-xs-12 profile_left">
+        <div class="profile_img">
+            <div id="crop-avatar">
+                <!-- Current avatar -->
+                <img class="img-responsive avatar-view"  src="{{ asset('uploads/logos/disciplinas/')}}{{equipo.equipoOrganizacionCampeonatoDisciplina.disciplina.logo}}" alt="{{equipo.equipoOrganizacionCampeonatoDisciplina.disciplina.nombre }}" title="{{equipo.equipoOrganizacionCampeonatoDisciplina.disciplina.nombre }}">
+            </div>
+        </div>
+        <h3>{{equipo.nombre}}</h3>
+        <ul class="list-unstyled user_data">
+            <li>
+                <i class="fa fa-briefcase user-profile-icon"></i> Campeonato: {{equipo.equipoOrganizacionCampeonatoDisciplina.organizacion.campeonato }}</li>                    
+        </ul>
+        <a class="btn btn-success" href="{{ path('equipos_edit', { 'id': equipo.id }) }}"><i class="fa fa-edit m-right-xs"></i>Editar</a>
+        <br />
+    </div>
+    <div class="col-md-9 col-sm-9 col-xs-12">
+        <div class="" role="tabpanel" data-example-id="togglable-tabs">
+            <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
+                <li role="presentation" class="active"><a href="#tab_content1" id="home-tab" role="tab" data-toggle="tab" aria-expanded="true">Información</a> </li>                                
+            </ul>
+            <div id="myTabContent" class="tab-content">
+                <div role="tabpanel" class="tab-pane fade active in" id="tab_content1" aria-labelledby="home-tab">                               
+                    <h2>Datos del Equipo</h2>
+                    <br>
+                    <table class="table table-striped responsive-utilities	">
+                        <tbody>
+
+                            <tr>
+                                <th>Nombre</th>
+                                <td>{{ equipo.nombre }}</td>
+                            </tr>
+                            <tr>
+                                <th>Organización / Disciplina</th>
+                                <td>{{ equipo.equipoOrganizacionCampeonatoDisciplina  }}</td>
+                            </tr>                                                                    
+                        </tbody>
+                    </table>
+                </div>
+                
+            </div>
+           
+        </div>
+        
+{% endblock %}

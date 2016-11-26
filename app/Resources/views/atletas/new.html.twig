@@ -1,0 +1,614 @@
+{% extends 'gentelella.html.twig' %} 
+{% block title %} FEVEDEU {% endblock %}
+{% block stylesheets %}
+    <!-- Wizard -->
+    <link href="{{ asset('bundles/backend/vendors/smart-wizard/css/smart_wizard.min.css')}}" rel="stylesheet"> 
+    <!--link href="{{ asset('bundles/backend/vendors/smart-wizard/css/smart_wizard_theme_arrows.min.css')}}" rel="stylesheet"--> 
+    <!-- Formatear inputs -->
+    <link href="{{ asset('bundles/backend/vendors/BootstrapFormHelpers/css/bootstrap-formhelpers.min.css')}}" rel="stylesheet"> 
+{% endblock %}
+
+{% block Titulo %} {{ organizacion }} {% endblock %}
+
+{% block Subtitulo %} Crear <small>Atleta</small> {% endblock %} 
+{% block cerrar %} href="{{ path('atletas_index')}}" {% endblock %} 
+
+{% block paneltoolbox %} 
+    
+    <li><a  class="btn btn-primary" href="{{ path('atletas_index')}}" style="  padding: 6px 12px;  color: white;">Volver </a>
+    </li>    
+    
+{% endblock %}         
+
+{% block body %} 
+    {% include "ComurImageBundle:Form:croppable_image_modal.html.twig" with {'include_jquery': false, 'include_bootstrap': false} %}
+    <br /> 
+       {% for msg in app.session.flashBag.get('success') %}
+        <div class="alert alert-success">
+            {{ msg }}
+        </div>
+    {% endfor %}
+    {% for msgs in app.session.flashBag.get('error') %}
+        <div class="alert alert-danger">
+            {% for msg in msgs %}
+                {{ msg }}
+            {% endfor %}
+
+        </div>
+    {% endfor %}
+
+    {{ form_start(form, { 'attr': {'id':'atletas','class': 'form-horizontal form-label-left', 'data-toggle':'validator'} }) }} 
+    {{ form_errors(form) }}
+
+    <!-- Smart Wizard -->
+
+    <p></p>
+    <div id="wizard" class="form_wizard wizard_horizontal">
+        <ul class="wizard_steps">
+            <li>
+                <a href="#step-1">
+                    <span class="step_no">1</span>
+                    <span class="step_descr">
+                        Paso 1<br />
+                        <small>Personales</small>
+                    </span>
+                </a>
+            </li>
+            <li>
+                <a href="#step-2">
+                    <span class="step_no">2</span>
+                    <span class="step_descr">
+                        Paso 2<br />
+                        <small>Académicos</small>
+                    </span>
+                </a>
+            </li>
+            <li>
+                <a href="#step-3">
+                    <span class="step_no">3</span>
+                    <span class="step_descr">
+                        Paso 3<br />
+                        <small>Médicos</small>
+                    </span>
+                </a>
+            </li>
+            <li>
+                <a href="#step-4">
+                    <span class="step_no">4</span>
+                    <span class="step_descr">
+                        Paso 4<br />
+                        <small>Uniformes</small>
+                    </span>
+                </a>
+            </li>
+            <li>
+                <a href="#step-5">
+                    <span class="step_no">5</span>
+                    <span class="step_descr">
+                        Paso 5<br />
+                        <small>Deportivos</small>
+                    </span>
+                </a>
+            </li>
+            <li>
+                <a href="#step-6">
+                    <span class="step_no">6</span>
+                    <span class="step_descr">
+                        Paso 6<br />
+                        <small>Observaciones</small>
+                    </span>
+                </a>
+            </li>
+        </ul>
+        <div id="step-1">
+            <h2 class="StepTitle">Datos Personales</h2>                       
+            <div  class="form-step-0" role="form" data-toggle="validator">
+                <div class="form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="nacionalidad">Nacionalidad <span class="required">*</span>
+                    </label>
+                    <div  class="col-md-6 col-sm-6 col-xs-12" >
+                        {{form_widget(form.nacionalidad,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}  
+                    </div>
+                </div>
+            </div>
+            <div class="form-step-0" role="form" data-toggle="validator">
+                <div class="form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="cedula">Cédula <span class="required">*</span>
+                    </label>
+                    <div class="col-md-6 col-sm-6 col-xs-12" >
+                        {{form_widget(form.cedula,{ 'attr': {'class': 'form-control col-md-7 col-xs-12','required': 'required'} } ) }}  
+                    </div>
+                </div>
+            </div>
+            <div class="form-step-0" role="form" data-toggle="validator">
+                <div class="form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="primerApellido">Primer Apellido <span class="required">*</span>
+                    </label>
+                    <div id="form-step-0" role="form" class="col-md-6 col-sm-6 col-xs-12" data-toggle="validator">
+                        {{form_widget(form.primerApellido,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}  
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-step-0" role="form" >
+
+                <div class="form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="segundoApellido">Segundo Apellido 
+                    </label>
+                    <div id="form-step-0" role="form" class="col-md-6 col-sm-6 col-xs-12" >
+                        {{form_widget(form.segundoApellido,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}  
+                    </div>
+                </div>
+            </div>
+            <div class="form-step-0" role="form" data-toggle="validator">
+
+                <div class="form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="primerNombre">Primer Nombre <span class="required">*</span></label>
+                    <div id="form-step-0" role="form" class="col-md-6 col-sm-6 col-xs-12" data-toggle="validator">
+                        {{form_widget(form.primerNombre,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}  
+                    </div>
+                </div>
+            </div>
+            <div class="form-step-0" role="form" >
+
+                <div class="form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="segundoNombre">Segundo Nombre </label>
+                    <div id="form-step-0" role="form" class="col-md-6 col-sm-6 col-xs-12" >
+                        {{form_widget(form.segundoNombre,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}  
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-step-0" role="form" data-toggle="validator">                      
+                <div class="form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="fechaNacimiento">Fecha Nacimiento <span class="required">*</span></label>
+                    <div id="form-step-0" class="col-md-6 col-sm-6 col-xs-12" data-toggle="validator">
+                        {{form_widget(form.fechaNacimiento,{'attr': {'class': ' col-md-7 col-xs-12'} } ) }}  
+                    </div>
+                </div>
+            </div>
+            <div class="form-step-0" role="form" data-toggle="validator">
+
+                <div class="form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="genero">Género <span class="required">*</span></label>
+                    <div id="form-step-0" class="col-md-6 col-sm-6 col-xs-12" data-toggle="validator">
+                        {{form_widget(form.genero,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}  
+                    </div>
+                </div>
+            </div>
+            <div class="form-step-0" role="form" data-toggle="validator">
+
+                <div class="form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="email">E-mail <span class="required">*</span></label>
+                    <div id="form-step-0" class="col-md-6 col-sm-6 col-xs-12" data-toggle="validator">
+                        {{form_widget(form.email,{ 'attr': {'class': 'form-control col-md-7 col-xs-12','type':'email'} } ) }}  
+                    </div>
+                </div>
+            </div>
+            <div class="form-step-0" role="form" data-toggle="validator">
+
+                <div class="form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="telefono">Teléfono <span class="required">*</span></label>
+                    <div id="form-step-0" class="col-md-6 col-sm-6 col-xs-12" data-toggle="validator">
+                        {{form_widget(form.telefono,{ 'attr': {'data-format':'+58 (ddd) ddd-dddd','class': 'bfh-phone form-control col-md-7 col-xs-12'} } ) }}
+                    </div>
+                </div>
+            </div>
+            <div class="form-step-0" role="form" data-toggle="validator">
+
+                <div class="form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="fotografia">Fotografía <span class="required">*</span></label>
+                    <div id="form-step-0" class="col-md-6 col-sm-6 col-xs-12" data-toggle="validator">
+                        {{form_widget(form.fotografia,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}  
+                    </div>
+                </div>
+            </div>
+            <div class="form-step-0" role="form" data-toggle="validator">
+                
+                <div class="form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="imagenCedula">Imagen Cédula <span class="required">*</span></label>
+                    <div id="form-step-0" class="col-md-6 col-sm-6 col-xs-12" data-toggle="validator">
+                        {{form_widget(form.imagenCedula,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}  
+                    </div>
+                </div>
+            </div>
+
+            
+
+        </div>
+        <div id="step-2">
+
+            <h2 class="StepTitle">Datos Académicos</h2>
+
+            
+            <div id="Organizacion" class="form-step-1" role="form" data-toggle="validator">
+
+                <div class="form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="institucion">Institución <span class="required">*</span></label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        {{form_widget(form.organizacion,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}  
+                    </div>
+                </div>
+            </div>
+                    
+            <div class="form-step-1" role="form" data-toggle="validator">
+
+
+                <div class="form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="departamento">Departamento <span class="required">*</span></label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        {{form_widget(form.departamento,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}  
+                    </div>
+                </div>
+            </div>
+            <div class="form-step-1" role="form" data-toggle="validator">
+
+                <div class="form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="ingreso">Año de Ingreso <span class="required">*</span></label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        {{form_widget(form.ingreso,{ 'attr': {'data-max':'2016','data-min':'2010', 'class': 'bfh-number  form-control col-md-7 col-xs-12'} } ) }}  
+                    </div>
+                </div>
+            </div>            
+
+            <div class="form-step-1" role="form" >
+
+                <div class="form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="constancia">Constancia (.pdf)</label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        {{form_widget(form.contancia,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}  
+                    </div>
+                </div>
+            </div>
+            <div class="form-step-1" role="form" >
+
+                <div class="form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="carnet">Carnet </label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        {{form_widget(form.carnet,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}  
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="step-3">
+            <h2 class="StepTitle">Datos Médicos</h2>
+
+            <div class="form-step-2" role="form" data-toggle="validator">
+                <div class="form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="altura">Altura <span class="required">*</span></label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        {{form_widget(form.altura,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}  
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-step-2" role="form" data-toggle="validator">    
+                <div class="form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="peso">Peso <span class="required">*</span></label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        {{form_widget(form.peso,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}  
+                    </div>
+                </div>
+            </div>
+            <div class="form-step-2" role="form" data-toggle="validator">
+                <div class="form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="tipoSangre">Tipo de Sangre <span class="required">*</span></label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        {{form_widget(form.tipoSangre,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}  
+                    </div>
+                </div>
+            </div>
+            <div class="form-step-2" role="form" data-toggle="validator">
+                <div class="form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="alergias">Alergias </label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        {{form_widget(form.alergias,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}  
+                    </div>
+                </div>
+            </div>
+            <div class="form-step-2" role="form" data-toggle="validator">
+                <div class="form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="contactoNombre">Nombre Contacto <span class="required">*</span></label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        {{form_widget(form.contactoNombre,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}  
+                    </div>
+                </div>
+            </div>
+            <div class="form-step-2" role="form" data-toggle="validator">
+                <div class="form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="contactoTelefono">Teléfono Contacto <span class="required">*</span></label>
+                    <div id="form-step-0" class="col-md-6 col-sm-6 col-xs-12" data-toggle="validator">
+                        {{form_widget(form.contactoTelefono,{ 'attr': {'data-format':'+58 (ddd) ddd-dddd','class': 'bfh-phone form-control col-md-7 col-xs-12'} } ) }}
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div id="step-4">
+            <h2 class="StepTitle">Datos Uniformes</h2>
+
+            <div class="form-step-3" role="form" data-toggle="validator">
+                <div class="form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="contactoTelefono">Talla de Franela <span class="required">*</span></label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        {{form_widget(form.tallaFranela,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}  
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-step-3" role="form" data-toggle="validator">
+                <div class="form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="contactoTelefono">Talla de Pantalón <span class="required">*</span></label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        {{form_widget(form.tallaPantalon,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}  
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-step-3" role="form" data-toggle="validator">
+                <div class="form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="contactoTelefono">Talla de Pantalón Corto <span class="required">*</span></label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        {{form_widget(form.tallaPantalonCorto,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}  
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-step-3" role="form" data-toggle="validator">
+                <div class="form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="contactoTelefono">Talla de Zapato <span class="required">*</span></label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        {{form_widget(form.tallaZapato,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}  
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-step-3" role="form" data-toggle="validator">
+                <div class="form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="contactoTelefono">Talla de Gorra <span class="required">*</span></label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        {{form_widget(form.tallaGorra,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}  
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-step-3" role="form" data-toggle="validator">
+                <div class="form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="contactoTelefono">Talla de Chaqueta <span class="required">*</span></label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        {{form_widget(form.tallaChaqueta,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}  
+                    </div>
+                </div>
+            </div>
+
+            <!--div class="form-step-3" role="form" data-toggle="validator">
+                <div class="form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="contactoTelefono">Talla de Medias <span class="required">*</span></label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        {{form_widget(form.tallaMedias, { 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}  
+                    </div>
+                </div>
+            </div-->
+
+        </div>
+        <div id="step-5">
+            <h2 class="StepTitle">Datos Deportivos</h2>
+            <div class="form-step-4" role="form" data-toggle="validator">
+                <div class="form-group form-group-eq">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="equipos[]">Disciplinas <span class="required">*</span></label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <div id="disciplinas" >    
+                            
+                            {% set i = 1 %}
+                            {% for disciplina in disciplinas %}
+                                
+                                {% if disciplina[2][0] is defined %}
+                                    <div style=' border-bottom: 1px solid #cccccc; '>
+                                        
+                                        <!--input type='checkbox'  name="disciplinas[]" value="{{ disciplina[0] }}"  class=' disciplinas {% if disciplina[2] is defined %}hasTeam{% endif%}' /--> {{ disciplina[1] }}
+
+                                        {% if disciplina[2] is defined %}                                    
+                                            <div id="equipos" style="clear: both" class="equipos">  
+
+                                                {% for equipo in disciplina[2] %}
+                                                    <input type='checkbox' style="margin-left:10px" name="equipos[]" class='  equiposCk'  value="{{ equipo[0] }}"/> {{ equipo[1] }} </br>
+                                                {% endfor %}
+                                                <br>    
+                                            </div>
+                                        {% endif%}
+                                        {% set i = i+1 %}
+                                    </div>
+                                {% endif%}
+                            {% endfor %}    
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+        <div id="step-6">
+            <h2 class="StepTitle">Observaciones</h2>
+
+            <div class="form-step-5" role="form" data-toggle="validator">
+                <div class="form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="observaciones">Observaciones </label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        {{form_widget(form.observacion,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}  
+                    </div>
+                </div>
+            </div>
+
+            <div id='Status' class="form-step-5" role="form" data-toggle="validator">
+                <div class="form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="contactoTelefono">Status <span class="required">*</span></label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        {{form_widget(form.status,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}  
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+    <!-- End SmartWizard Content -->    
+    {{ form_end(form) }}
+{% endblock %}
+{% block javascripts %}    
+    <!-- Include jQuery Validator plugin -->
+    <script src="{{ asset('bundles/backend/vendors/smart-wizard/js/validator.min.js')}}"></script>
+    <!-- jQuery Smart Wizard -->
+    <script src="{{ asset('bundles/backend/vendors/jQuery-Smart-Wizard/js/jquery.smartWizard.js')}}"></script>
+    <script src="{{ asset('bundles/backend/vendors/BootstrapFormHelpers/js/bootstrap-formhelpers.min.js')}}"></script>
+
+    <!-- Imagenes -->
+    <script src="{{ asset('bundles/backend/vendors/holder.js') }}"></script>
+    <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+    <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script> 
+
+    <!-- Validar inputs -->
+    <script src="{{ asset('bundles/backend/vendors/BootstrapFormHelpers/js/bootstrap-formhelpers.min.js')}}"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+             //Selecionamos la organizacion en el Campo Institucion
+            $("#atletas_organizacion").val("{{org}}");
+            $("#Organizacion").hide();
+            $("#atletas_status").val("En Proceso");
+            $("#Status").hide();
+            
+           // $("#atletas_organizacion").prop("disabled","disabled");
+            
+            // Disciplinas asociadas a la organización del Atleta
+            var eqD = '{{jsonEq|raw}}';
+            var data = JSON.parse(eqD);
+
+            $(".disciplinas").click(function () {
+                var isC = $(this).prop('checked');
+                if (isC) {
+                    $(".equipos").each(function () {
+                        //alert($(this).prev(".disciplinas").val() + $(this).prev(".disciplinas").prop('checked'))
+                        if (!$(this).prev(".disciplinas").prop('checked')) {
+                            $(this).hide();
+                        }
+                    });
+
+                    $(this).next(".equipos").show();
+                } else {
+                    $(this).next(".equipos").hide();
+                }
+
+            });
+            // Smart Wizard
+            $('#wizard').smartWizard({
+                //onLeaveStep: leaveAStepCallback,
+                onFinish: onFinishCallback,
+                // Properties
+                selected: 0, // Selected Step, 0 = first step   
+                keyNavigation: true, // Enable/Disable key navigation(left and right keys are used if enabled)
+                enableAllSteps: false, // Enable/Disable all steps on first load
+                transitionEffect: 'fade', // Effect on navigation, none/fade/slide/slideleft
+                contentURL: null, // specifying content url enables ajax content loading
+                contentURLData: null, // override ajax query parameters
+                contentCache: true, // cache step contents, if false content is fetched always from ajax url
+                cycleSteps: false, // cycle step navigation
+                enableFinishButton: false, // makes finish button enabled always
+                hideButtonsOnDisabled: false, // when the previous/next/finish buttons are disabled, hide them instead
+                errorSteps: [], // array of step numbers to highlighting as error steps
+                labelNext: 'Siguiente', // label for Next button
+                labelPrevious: 'Anterior', // label for Previous button
+                labelFinish: 'Finalizar', // label for Finish button        
+                noForwardJumping: false,
+                ajaxType: 'POST',
+                // Events
+                onLeaveStep: leaveAStepCallback, // triggers when leaving a step
+                onShowStep: showAStep, // triggers when showing a step
+                //onFinish: null, // triggers when Finish button is clicked
+                includeFinishButton: true, // Add the finish button
+                reverseButtonsOrder: false //shows buttons ordered as: prev, next and finish    
+            });
+
+            $('.buttonNext').addClass('btn btn-success');
+            $('.buttonPrevious').addClass('btn btn-primary');
+            $('.buttonFinish').addClass('btn btn-default');
+
+            function leaveAStepCallback(obj, context) {
+                if (context.fromStep===5){
+                    //$(".equipos").hide();
+                }
+                return validateSteps(context.fromStep); // return false to stay on step and true to continue navigation 
+            }
+
+            function onFinishCallback(objs, context) {
+                if (validateAllSteps()) {
+                    $('form').submit();
+                }
+            }
+            
+            function showAStep(obj, context){
+                $("#step-" + (obj.attr('rel')) +" .form-control").each(function(){
+                    if ($(this).is(":visible")){
+                      $(this).focus().select(); 
+                      
+                      return false;
+                    }
+                });
+               
+            }
+
+            // Your Step validation logic
+            function validateSteps(stepnumber) {
+                var isStepValid = true;
+
+                var elmForm = $(".form-step-" + (parseInt(stepnumber) - 1));
+
+                if (elmForm) {
+                    elmForm.validator('validate');
+                    var elmErr = elmForm.children('.has-error');
+                    if (elmErr && elmErr.length > 0) {
+                        // Error found
+                        isStepValid = false;
+                    }
+                }
+
+                var isValEq = true;
+                var numEqSel = elmForm.find(".equiposCk:checked").length;
+
+                if (numEqSel > 2 && stepnumber === 5) {
+                    alert("Disculpe, puede seleccionar un máximo de dos (2) disciplinas por atleta")
+                    $(".form-group-eq").addClass("has-error has-danger");
+                    isValEq = false;
+                } else if (numEqSel === 0 && stepnumber === 5) {
+                    $(".form-group-eq").addClass("has-error has-danger");
+                    isValEq = false;
+                }
+
+                return isValEq & isStepValid;
+                // ...      
+            }
+            function validateAllSteps() {
+                var isStepValid = true;
+
+                var elmForm = $("#atletas");
+
+                if (elmForm) {
+                    elmForm.validator('validate');
+                    var elmErr = elmForm.children('.has-error');
+                    if (elmErr && elmErr.length > 0) {
+                        // Error found
+                        isStepValid = false;
+                    }
+                }
+
+                return isStepValid;
+
+            }
+            
+            
+        }
+        );
+    </script>
+    <!-- /jQuery Smart Wizard -->   
+{% endblock %} 

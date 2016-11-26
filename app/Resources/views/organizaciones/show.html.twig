@@ -1,0 +1,79 @@
+{% extends 'gentelella.html.twig' %} 
+{% block title %} Organizaciones {% endblock %}
+{% block Titulo %} DeportesTINN!!! {% endblock %}
+{% block Subtitulo %} Organizaciones <small>Ver</small> {% endblock %} 
+{% block cerrar %} href="{{ path('organizaciones_index')}}" {% endblock %}                  
+{% block body %}
+    <div class="col-md-3 col-sm-3 col-xs-12 profile_left">
+        <div class="profile_img">
+            <div id="crop-avatar">
+                <!-- Current avatar -->
+                <img class="img-responsive avatar-view"  src="{{ asset('uploads/logos/organizaciones/')}}{{organizacione.logo}}" alt="{{organizacione.nombre}}" title="{{organizacione.nombre}}">
+            </div>
+        </div>
+        <h3>{{organizacione.nombre}}</h3>
+        <ul class="list-unstyled user_data">
+            <li><i class="fa fa-briefcase user-profile-icon"></i> Abreviatura: {{ organizacione.abreviatura }}</li>                   
+        </ul>
+        <a class="btn btn-success" href="{{ path('organizaciones_edit', { 'id': organizacione.id }) }}"><i class="fa fa-edit m-right-xs"></i>Editar</a>
+        <br />
+    </div>
+    <div class="col-md-9 col-sm-9 col-xs-12">
+        <div class="" role="tabpanel" data-example-id="togglable-tabs">
+            <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
+                <li role="presentation" class="active"><a href="#tab_content1" id="home-tab" role="tab" data-toggle="tab" aria-expanded="true">Información</a> </li> 
+                <li role="presentation" class=""><a href="#tab_content2" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">Disciplinas</a></li>
+            </ul>
+            <div id="myTabContent" class="tab-content">
+                <div role="tabpanel" class="tab-pane fade active in" id="tab_content1" aria-labelledby="home-tab">                               
+                    <h2>Datos de la liga</h2>
+                    <br>
+                    <table class="table table-striped responsive-utilities">
+                        <tbody>
+                            <tr>
+                                <th>Campeonato</th>
+                                <td>{{ organizacione.campeonato }}</td>
+                            </tr>                            
+                            <tr>
+                                <th>Responsable</th>
+                                <td>{{ organizacione.responsable }}</td>
+                            </tr>
+                            <tr>
+                                <th>Email</th>
+                                <td>{{ organizacione.email }}</td>
+                            </tr>
+                            <tr>
+                                <th>Rif</th>
+                                <td>{{ organizacione.rif }}</td>
+                            </tr>
+                            <tr>
+                                <th>Teléfono</th>
+                                <td>{{ organizacione.telefono }}</td>
+                            </tr>                                                        
+                            <tr>
+                                <th>Dirección</th>
+                                <td>{{ organizacione.direccion }}</td>
+                            </tr>
+
+                        </tbody>                        
+                    </table>
+                </div>
+                <div role="tabpanel" class="tab-pane fade" id="tab_content2" aria-labelledby="profile-tab">                                   
+                    <h2>Datos Deportivos</h2>
+                    <br>
+                    <table class="table table-striped responsive-utilities">
+                        <tbody>                                                                                                            
+                            {% for disciplina in disciplinas %}
+                                 <tr>
+                                    <td> {{disciplina}}  </td>
+                                     </tr>
+                                {% endfor %}
+                        </tbody>                        
+                    </table>
+                </div>
+
+            </div>
+
+        </div>
+
+    {% endblock %}

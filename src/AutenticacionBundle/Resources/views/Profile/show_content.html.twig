@@ -1,0 +1,14 @@
+{% trans_default_domain 'FOSUserBundle' %}
+{% block title %} Usuario {% endblock %}
+{% block Titulo %} DeportesTINN {% endblock %}
+{% block Subtitulo %} Perfil<small>Ver</small> {% endblock %} 
+{% block cerrar %} href="{{ path('backend_default_index')}}" {% endblock %}    
+                
+{% block body %} 
+   <div class="panel white-alpha-90" >    
+        <div class="panel-body" >
+            <p>{{ 'profile.show.username'|trans }}: {{ user.username }}</p>
+            <p>{{ 'profile.show.email'|trans }}: {{ user.email }}</p>        
+        </div>
+    </div>            
+{% endblock %}

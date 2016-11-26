@@ -1,0 +1,93 @@
+{% extends 'gentelella.html.twig' %} 
+{% block title %} Campeonatos {% endblock %}
+{% block Titulo %} DeportesTINN!!! {% endblock %}
+{% block Subtitulo %} Campeonato/Disciplina <small>Ver</small> {% endblock %} 
+{% block cerrar %} href="{{ path('campeonatos_index')}}" {% endblock %}                  
+{% block body %}
+    <div class="col-md-3 col-sm-3 col-xs-12 profile_left">
+        <div class="profile_img">
+            <div id="crop-avatar">
+                <!-- Current avatar -->
+                <img class="img-responsive avatar-view"  src="{{ asset('bundles/backend/images/logos/disciplinas/')}}{{campeonatoDisciplina.disciplina.logo}}" alt="{{campeonatoDisciplina.disciplina}}" title="{{campeonatoDisciplina.disciplina}}">
+            </div>
+        </div>
+        <h3>{{ campeonatoDisciplina.campeonato}}/{{ campeonatoDisciplina.disciplina }}</h3>
+        <ul class="list-unstyled user_data">           
+            <li><i class="fa fa-map-marker user-profile-icon"></i> Campeonato: {{ campeonatoDisciplina.campeonato}}</li>    
+             <li><i class="fa fa-briefcase user-profile-icon"></i> Disciplina: {{campeonatoDisciplina.disciplina }}</li>
+        </ul>
+        <a class="btn btn-success" href="{{ path('campeonatodisciplina_edit', { 'id': campeonatoDisciplina.id }) }}"><i class="fa fa-edit m-right-xs"></i>Editar</a>
+        <br />
+    </div>
+    <div class="col-md-9 col-sm-9 col-xs-12">
+        <div class="" role="tabpanel" data-example-id="togglable-tabs">
+            <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
+                <li role="presentation" class="active"><a href="#tab_content1" id="home-tab" role="tab" data-toggle="tab" aria-expanded="true">Información</a> </li>                                
+            </ul>
+            <div id="myTabContent" class="tab-content">
+                <div role="tabpanel" class="tab-pane fade active in" id="tab_content1" aria-labelledby="home-tab">                               
+                    <h2>Datos de la liga</h2>
+                    <br>
+                    <table class="table table-striped responsive-utilities	">
+                        <tbody>                           
+                            <tr>
+                                <th>Campeonato</th>
+                                <td>{{ campeonatoDisciplina.campeonato }}</td>
+                            </tr>
+                            <tr>
+                                <th>Disciplina</th>
+                                <td>{{ campeonatoDisciplina.disciplina }}</td>
+                            </tr>
+                            <tr>
+                                <th>Nómina Abierta</th>
+                                <td>{{ campeonatoDisciplina.abierto }}</td>
+                            </tr>
+                            <tr>
+                                <th>Maximo de Atletas</th>
+                                <td>{{ campeonatoDisciplina.maximo }}</td>
+                            </tr>
+                            <tr>
+                                <th>Minimo de Atletas</th>
+                                <td>{{ campeonatoDisciplina.minimo }}</td>
+                            </tr>
+                              <tr>
+                                <th>Entrenador</th>
+                                <td>{{ campeonatoDisciplina.entrenador }}</td>
+                            </tr>
+                              <tr>
+                                <th>Asistente</th>
+                                <td>{{ campeonatoDisciplina.asistente }}</td>
+                            </tr>
+                              <tr>
+                                <th>Delegado</th>
+                                <td>{{ campeonatoDisciplina.delegado }}</td>
+                            </tr>
+                            
+                              <tr>
+                                <th>Medico</th>
+                                <td>{{ campeonatoDisciplina.medico }}</td>
+                            </tr>
+                            
+                              <tr>
+                                <th>Logistico</th>
+                                <td>{{ campeonatoDisciplina.logistico }}</td>
+                            </tr>
+                            
+                            <tr>
+                                <th>Inicio</th>
+                                <td>{% if campeonatoDisciplina.inicio %}{{ campeonatoDisciplina.inicio|date('d-m-Y') }}{% endif %}</td>
+                            </tr>
+                            <tr>
+                                <th>Fin</th>
+                                <td>{% if campeonatoDisciplina.fin %}{{ campeonatoDisciplina.fin|date('d-m-Y') }}{% endif %}</td>
+                            </tr>
+
+                        </tbody>                        
+                    </table>
+                </div>
+
+            </div>
+
+        </div>
+
+    {% endblock %}

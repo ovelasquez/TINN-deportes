@@ -1,0 +1,21 @@
+{% extends "AutenticacionBundle::layout.html.twig" %}
+
+{% block fos_user_content %}
+{% trans_default_domain 'FOSUserBundle' %}
+
+<div class="panel white-alpha-90" >
+    <div class="panel-heading">
+        <div class="panel-title text-center"><h2>Registrate en tu <span class="text-primary">Liga</span></h2></div>
+    </div>     
+    <div class="panel-body" >
+        <div style="display:none" id="login-alert" class="alert alert-danger col-sm-12"></div>
+{{ form_start(form, { 'action': path('fos_user_profile_edit'), 'attr': { 'class': 'fos_user_profile_edit' } }) }}
+    {{ form_widget(form) }}
+    <div>
+        <input type="submit" value="{{ 'profile.edit.submit'|trans }}" />
+    </div>
+{{ form_end(form) }}
+    </div>                     
+</div> 
+
+{% endblock fos_user_content %}

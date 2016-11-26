@@ -1,0 +1,455 @@
+{% extends 'gentelella.html.twig' %} 
+{% block stylesheets %}
+    <link href="{{ asset('bundles/backend/css/smart_wizard.min.css')}}"  rel="stylesheet">
+    <link href="{{ asset('bundles/backend/css/smart_wizard_theme_arrows.min.css')}}"  rel="stylesheet">
+{% endblock %}
+{% block body %}
+    
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2>
+                        Equipo - Atletas <small>Editar</small>
+                    </h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
+                        <li class="dropdown"><a href="#" class="dropdown-toggle"
+                                                data-toggle="dropdown" role="button" aria-expanded="false"><i
+                                    class="fa fa-wrench"></i></a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="{{ path('atletaequipo_new') }}">Agregar un Atleta</a></li>
+                                <li><a href="{{ path('atletaequipo_index') }}">Regresar a la lista</a></li>
+
+                            </ul></li>
+                        <li><a class="close-link"><i class="fa fa-close"></i></a></li>
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    <br /> 
+
+
+
+
+                    {{ form_start(edit_form, { 'attr': {'id':'atletas','class': 'form-horizontal form-label-left', 'data-toggle':'validator'} }) }} 
+
+                    {{ form_errors(edit_form) }}
+
+                    <!-- Smart Wizard -->
+                    <div id="smartwizard" >
+                        <ul>
+                            <li><a href="#step-1"><small>Personales</small></a></li>
+                            <li><a href="#step-2"><small>Académicos</small></a></li>
+                            <li><a href="#step-3"><small>Médicos</small></a></li>
+                            <li><a href="#step-4"><small>Uniformes</small></a></li>
+                            <li><a href="#step-5"><small>Deportivos</small></a></li>
+                            <li><a href="#step-6"><small>Observaciones</small></a></li>
+                        </ul>
+
+                        <div>
+                            {# PASO 1 #}
+
+                            <div id="step-1">                              
+                                <h2 class="StepTitle">Datos Personales</h2>
+                                <div class="form-step-0" role="form" data-toggle="validator">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="nacionalidad">Nacionalidad <span class="required">*</span>
+                                        </label>
+                                        <div  class="col-md-6 col-sm-6 col-xs-12" >
+                                            {{form_widget(edit_form.atleta.nacionalidad,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}  
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-step-0" role="form" data-toggle="validator">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="cedula">Cédula <span class="required">*</span>
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12" >
+                                            {{form_widget(edit_form.atleta.cedula,{ 'attr': {'class': 'form-control col-md-7 col-xs-12','required': 'required'} } ) }}  
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-step-0" role="form" data-toggle="validator">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="primerApellido">Primer Apellido <span class="required">*</span>
+                                        </label>
+                                        <div id="form-step-0" role="form" class="col-md-6 col-sm-6 col-xs-12" data-toggle="validator">
+                                            {{form_widget(edit_form.atleta.primerApellido,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}  
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-step-0" role="form" data-toggle="validator">
+
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="segundoApellido">Segundo Apellido 
+                                        </label>
+                                        <div id="form-step-0" role="form" class="col-md-6 col-sm-6 col-xs-12" data-toggle="validator">
+                                            {{form_widget(edit_form.atleta.segundoApellido,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}  
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-step-0" role="form" data-toggle="validator">
+
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="primerNombre">Primer Nombre <span class="required">*</span></label>
+                                        <div id="form-step-0" role="form" class="col-md-6 col-sm-6 col-xs-12" data-toggle="validator">
+                                            {{form_widget(edit_form.atleta.primerNombre,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}  
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-step-0" role="form" data-toggle="validator">
+
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="segundoNombre">Segundo Nombre </label>
+                                        <div id="form-step-0" role="form" class="col-md-6 col-sm-6 col-xs-12" data-toggle="validator">
+                                            {{form_widget(edit_form.atleta.segundoNombre,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}  
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-step-0" role="form" data-toggle="validator">
+
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="fechaNacimiento">Fecha Nacimiento <span class="required">*</span></label>
+                                        <div id="form-step-0" class="col-md-6 col-sm-6 col-xs-12" data-toggle="validator">
+                                            {{form_widget(edit_form.atleta.fechaNacimiento,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}  
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-step-0" role="form" data-toggle="validator">
+
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="genero">Gënero <span class="required">*</span></label>
+                                        <div id="form-step-0" class="col-md-6 col-sm-6 col-xs-12" data-toggle="validator">
+                                            {{form_widget(edit_form.atleta.genero,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}  
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-step-0" role="form" data-toggle="validator">
+
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="genero">E-mail <span class="required">*</span></label>
+                                        <div id="form-step-0" class="col-md-6 col-sm-6 col-xs-12" data-toggle="validator">
+                                            {{form_widget(edit_form.atleta.email,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}  
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-step-0" role="form" data-toggle="validator">
+
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="genero">Teléfono <span class="required">*</span></label>
+                                        <div id="form-step-0" class="col-md-6 col-sm-6 col-xs-12" data-toggle="validator">
+                                            {{form_widget(edit_form.atleta.telefono,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}  
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-step-0" role="form" data-toggle="validator">
+
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="genero">Fotografía <span class="required">*</span></label>
+                                        <div id="form-step-0" class="col-md-6 col-sm-6 col-xs-12" data-toggle="validator">
+                                            {{form_widget(edit_form.atleta.fotografia,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}  
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-step-0" role="form" data-toggle="validator">
+
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="genero">Imagen Cédula <span class="required">*</span></label>
+                                        <div id="form-step-0" class="col-md-6 col-sm-6 col-xs-12" data-toggle="validator">
+                                            {{form_widget(edit_form.atleta.imagenCedula,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}  
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+                            {# PASO 2 #}
+
+                            <div id="step-2" >
+
+                                <h2 class="StepTitle">Datos Académicos</h2>
+
+                                <div class="form-step-1" role="form" data-toggle="validator">
+
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="institucion">Institución <span class="required">*</span></label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            {{form_widget(edit_form.atleta.institucion,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}  
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-step-1" role="form" data-toggle="validator">
+
+
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="departamento">Departamento <span class="required">*</span></label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            {{form_widget(edit_form.atleta.departamento,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}  
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-step-1" role="form" data-toggle="validator">
+
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="ingreso">Año de Ingreso <span class="required">*</span></label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            {{form_widget(edit_form.atleta.ingreso,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}  
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-step-1" role="form" data-toggle="validator">
+
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="contancia">Contancia <span class="required">*</span></label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            {{form_widget(edit_form.atleta.contancia,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}  
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-step-1" role="form" data-toggle="validator">
+
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="carnet">Carnet <span class="required">*</span></label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            {{form_widget(edit_form.atleta.carnet,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}  
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {# PASO 3 #}
+
+                            <div id="step-3" >
+
+                                <h2 class="StepTitle">Datos Médicos</h2>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="altura">Altura <span class="required">*</span></label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        {{form_widget(edit_form.atleta.altura,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}  
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="peso">Peso <span class="required">*</span></label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        {{form_widget(edit_form.atleta.peso,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}  
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="tipoSangre">Tipo de Sangre <span class="required">*</span></label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        {{form_widget(edit_form.atleta.tipoSangre,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}  
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="alergias">Alergias </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        {{form_widget(edit_form.atleta.alergias,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}  
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="contactoNombre">Nombre Contacto <span class="required">*</span></label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        {{form_widget(edit_form.atleta.contactoNombre,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}  
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="contactoTelefono">Teléfono Contacto <span class="required">*</span></label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        {{form_widget(edit_form.atleta.contactoTelefono,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}  
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            {# PASO 4 #}
+
+                            <div id="step-4" >
+
+                                <h2 class="StepTitle">Datos Uniformes</h2>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="contactoTelefono">Talla de Franela <span class="required">*</span></label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        {{form_widget(edit_form.atleta.tallaFranela,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}  
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="contactoTelefono">Talla de Pantalón <span class="required">*</span></label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        {{form_widget(edit_form.atleta.tallaPantalon,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}  
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="contactoTelefono">Talla de Pantalón Corto <span class="required">*</span></label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        {{form_widget(edit_form.atleta.tallaPantalonCorto,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}  
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="contactoTelefono">Talla de Zapato <span class="required">*</span></label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        {{form_widget(edit_form.atleta.tallaZapato,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}  
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="contactoTelefono">Talla de Gorra <span class="required">*</span></label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        {{form_widget(edit_form.atleta.tallaGorra,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}  
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="contactoTelefono">Talla de Chaqueta <span class="required">*</span></label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        {{form_widget(edit_form.atleta.tallaChaqueta,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}  
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="contactoTelefono">Talla de Medias <span class="required">*</span></label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        {{form_widget(edit_form.atleta.tallaMedias, { 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}  
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+                            {# PASO 5 #}
+                            <div id="step-5" >
+
+                                <h2 class="StepTitle">Datos Deportivos</h2>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="equipo">Equipo <span class="required">*</span></label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        {{form_widget(edit_form.equipo,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}  
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="status">Status <span class="required">*</span></label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        {{form_widget(edit_form.atleta.status,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}  
+                                    </div>
+                                </div>
+                            </div>
+
+                            {# PASO 6 #}
+                            <div id="step-6" >
+
+                                <h2 class="StepTitle">Observaciones</h2>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="observaciones">Observaciones</label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        {{form_widget(edit_form.atleta.observacion,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}  
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+
+                    </div>
+                    <!-- End SmartWizard Content -->
+
+
+
+                    {{ form_end(edit_form) }}
+
+
+                </div>
+
+                {{ form_start(delete_form) }}
+                <button type="submit" class="btn btn-danger">Eliminar</button>
+                {{ form_end(delete_form) }}
+
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <!-- FastClick -->
+    <script src="{{ asset('bundles/backend/js/fastclick.js')}}"></script>
+
+    <!-- NProgress -->
+    <script src="{{ asset('bundles/backend/js/nprogress.js')}}"></script>
+
+    <!-- Include jQuery Validator plugin -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.5/validator.min.js"></script>
+
+    <!-- jQuery Smart Wizard --> 
+    <script src="{{ asset('bundles/backend/js/wizard/jquery.smartWizard.js')}}"></script>
+
+    <!-- Custom Theme Scripts -->
+    <script src="{{ asset('bundles/backend/js/custom.js')}}"></script>
+
+
+    <!-- jQuery Smart Wizard -->
+    <script>
+        $(document).ready(function () {
+            $('#smartwizard').smartWizard({
+                selected: 0,
+                theme: 'arrows',
+                transitionEffect: 'fade',
+                toolbarSettings: {toolbarPosition: 'bottom',
+                    toolbarExtraButtons: [
+                        {label: 'Finalizar', css: 'btn-info  btn-finish', onClick: function () {
+                                if (!$(this).hasClass('disabled')) {
+                                    var elmForm = $("#atletas");
+                                    if (elmForm) {
+                                        elmForm.validator('validate');
+                                        var elmErr = elmForm.find('.has-error');
+                                        if (elmErr && elmErr.length > 0) {
+                                            alert('Oops todavía tenemos errores en el formulario');
+                                            return false;
+                                        } else {
+                                            alert('¡Estupendo! Estamos listos para enviar el formulario');
+                                            elmForm.submit();
+                                            return false;
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                    ]
+                }
+            });
+
+            // Initialize the leaveStep event
+            $("#smartwizard").on("leaveStep", function (e, anchorObject, stepNumber) {
+                var elmForm = $(".form-step-" + stepNumber);
+                if (elmForm) {
+                    elmForm.validator('validate');
+                    var elmErr = elmForm.children('.has-error');
+                    if (elmErr && elmErr.length > 0) {
+                        // Error found
+                        return false;
+                    }
+                }
+                return true;
+            });
+
+
+
+        });
+    </script>
+    <!-- /jQuery Smart Wizard -->
+
+{% endblock %} 

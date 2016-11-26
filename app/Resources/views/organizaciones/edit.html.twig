@@ -1,0 +1,135 @@
+{% extends 'gentelella.html.twig' %}
+{% block stylesheets %}    
+    <link href="{{ asset('bundles/backend/vendors/BootstrapFormHelpers/css/bootstrap-formhelpers.min.css')}}" rel="stylesheet"> 
+{% endblock %}
+
+{% block title %} Organizaciones {% endblock %}
+
+{% block Titulo %} DeportesTINN {% endblock %}
+
+{% block Subtitulo %} Organizaciones <small>Editar</small> {% endblock %} 
+
+{% block cerrar %} href="{{ path('organizaciones_index')}}" {% endblock %}                
+{% block body %}
+    {% include "ComurImageBundle:Form:croppable_image_modal.html.twig" with {'include_jquery': false, 'include_bootstrap': false} %}
+    <br />     
+    {{ form_start(edit_form, {'attr': {'id':'organizaciones','class': 'form-horizontal form-label-left'} }) }} 
+    {{ form_errors(edit_form) }}
+
+    <div class="form-group">
+        <label class="control-label col-md-3 col-sm-3 col-xs-12"
+               for="nombre">{{ form_label(edit_form.nombre) }} <span
+                class="required">*</span>
+        </label>
+        <div class="col-md-6 col-sm-6 col-xs-12">{{form_widget(edit_form.nombre,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}</div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-3 col-sm-3 col-xs-12"
+               for="abreviatura">{{ form_label(edit_form.abreviatura) }} <span
+                class="required">*</span>
+        </label>
+        <div class="col-md-6 col-sm-6 col-xs-12">{{form_widget(edit_form.abreviatura,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}</div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-3 col-sm-3 col-xs-12"
+               for="logo">{{ form_label(edit_form.logo) }} <span
+                class="required">*</span>
+        </label>
+        <div class="col-md-6 col-sm-6 col-xs-12">{{form_widget(edit_form.logo,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}</div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-3 col-sm-3 col-xs-12"
+               for="rif">{{ form_label(edit_form.rif) }} <span
+                class="required">*</span>
+        </label>
+        <div class="col-md-6 col-sm-6 col-xs-12">{{form_widget(edit_form.rif,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}</div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-3 col-sm-3 col-xs-12"
+               for="telefono">{{ form_label(edit_form.telefono) }} <span
+                class="required">*</span>
+        </label>        
+        <div class="col-md-6 col-sm-6 col-xs-12">{{form_widget(edit_form.telefono,{ 'attr': {'data-format':'+58 (ddd) ddd-dddd','class': 'bfh-phone form-control col-md-7 col-xs-12'} } ) }}</div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-3 col-sm-3 col-xs-12"
+               for="email">{{ form_label(edit_form.email) }} <span
+                class="required">*</span>
+        </label>
+        <div class="col-md-6 col-sm-6 col-xs-12">{{form_widget(edit_form.email,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}</div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-3 col-sm-3 col-xs-12"
+               for="responsable">{{ form_label(edit_form.responsable) }} <span
+                class="required">*</span>
+        </label>
+        <div class="col-md-6 col-sm-6 col-xs-12">{{form_widget(edit_form.responsable,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}</div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-3 col-sm-3 col-xs-12"
+               for="direccion">{{ form_label(edit_form.direccion) }} <span
+                class="required">*</span>
+        </label>
+        <div class="col-md-6 col-sm-6 col-xs-12">{{form_widget(edit_form.direccion,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}</div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-3 col-sm-3 col-xs-12"
+               for="campeonato">{{ form_label(edit_form.campeonato) }} <span
+                class="required">*</span>
+        </label>
+        <div class="col-md-6 col-sm-6 col-xs-12">{{form_widget(edit_form.campeonato,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}</div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-3 col-sm-3 col-xs-12"
+               for="disciplinas"> Disciplinas  <span
+                class="required">*</span>
+        </label>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+
+            {% set i = 0 %}
+            {% for deporte in deportes %}                               
+                <input type="checkbox" name="disciplinas[]" id="disciplina{{i}}" value="{{deporte[1]}}" 
+                       {% if i == 1 %} data-parsley-mincheck="1" {% endif %}
+                       {% if deporte[2] == 1 %} checked {% endif %}required />  {{deporte[0]}}
+                <br />
+                {% set i = i+1 %}
+            {% endfor %}
+
+        </div>
+    </div>
+
+    <div class="ln_solid"></div>
+    <div class="form-group">
+        <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+            <button type="submit" class="btn btn-success">Editar</button>                             
+        </div>
+    </div>
+    {{ form_end(edit_form) }}
+    {{ form_start(delete_form) }} <button type="submit" class="btn btn-danger">Eliminar</button> {{ form_end(delete_form) }}
+
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('bundles/backend/vendors/holder.js') }}"></script>
+    <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+    <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script> 
+    <!-- Valida el formulario, sobre todo que elija almenos 1 disciplina a la organizacion-->
+    <script src="{{ asset('bundles/backend/vendors/parsleyjs/dist/parsley.js') }}"></script>
+    <script src="{{ asset('bundles/backend/vendors/parsleyjs/dist/i18n/es.js') }}"></script>
+    <!--> Formatear inputs-->
+    <script src="{{ asset('bundles/backend/vendors/BootstrapFormHelpers/js/bootstrap-formhelpers.min.js')}}"></script>
+    <script type="text/javascript">
+        jQuery(function () {
+            jQuery('#organizaciones').parsley();
+        });
+    </script>
+{% endblock %} 
