@@ -396,34 +396,50 @@
             <div class="form-step-4" role="form" data-toggle="validator">
                 <div class="form-group form-group-eq">
                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="equipos[]">Disciplinas <span class="required">*</span></label>
+                    
+                    
                     <div class="col-md-6 col-sm-6 col-xs-12">
                         <div id="disciplinas" >    
                             
                             {% set i = 1 %}
+                      <table id="datatable-fixed-header" class="table table-striped">
+                      <thead>
+                        <tr>
+                          <th>Disciplinas</th>
+                          <th>Seleccione</th>                          
+                        </tr>
+                      </thead>
+                      <tbody>
                             {% for disciplina in disciplinas %}
-                                
+                            <tr>                                                                                                                                
                                 {% if disciplina[2][0] is defined %}
-                                    <div style=' border-bottom: 1px solid #cccccc; '>
-                                        
-                                        <!--input type='checkbox'  name="disciplinas[]" value="{{ disciplina[0] }}"  class=' disciplinas {% if disciplina[2] is defined %}hasTeam{% endif%}' /--> {{ disciplina[1] }}
+                                    <!--div style=' border-bottom: 1px solid #cccccc; '--> 
+                                           <td WIDTH="40%"> {{ disciplina[1] }}</td>
+                                         
 
-                                        {% if disciplina[2] is defined %}                                    
-                                            <div id="equipos" style="clear: both" class="equipos">  
-
-                                                {% for equipo in disciplina[2] %}
-                                                    <input type='checkbox' style="margin-left:10px" name="equipos[]" class='  equiposCk'  value="{{ equipo[0] }}"/> {{ equipo[1] }} </br>
-                                                {% endfor %}
-                                                <br>    
-                                            </div>
+                                        {% if disciplina[2] is defined %}
+                                            <td>
+                                                <div id="equipos" style="clear: both" class="equipos">  
+                                                    {% for equipo in disciplina[2] %}
+                                                    <input type='checkbox' style="margin-left:10px" name="equipos[]" class='  equiposCk'  value="{{ equipo[0] }}"/>
+                                                    {% endfor %}
+                                                    
+                                                </div>
+                                            </td>                                                                                           
                                         {% endif%}
+                                        
+                                        
                                         {% set i = i+1 %}
-                                    </div>
+                                    <!--/div-->
                                 {% endif%}
+                            </tr>
                             {% endfor %}    
+                    </tbody>
+                    </table>
                         </div>
-
-
                     </div>
+                    
+                    
                 </div>
             </div>
 
@@ -581,6 +597,7 @@
                     $(".form-group-eq").addClass("has-error has-danger");
                     isValEq = false;
                 } else if (numEqSel === 0 && stepnumber === 5) {
+                    alert("Disculpe, debe seleccionar por lo mínimo una (1) disciplina por atleta")
                     $(".form-group-eq").addClass("has-error has-danger");
                     isValEq = false;
                 }

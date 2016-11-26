@@ -46,8 +46,8 @@ class AtletasType extends AbstractType {
                         'showLibrary' => false //optional                        
                     ),
                     'cropConfig' => array(
-                        'minWidth' => 400,
-                        'minHeight' => 267,
+                        'minWidth' => 321,
+                        'minHeight' => 204,
                         'aspectRatio' => true, //optional
                         'cropRoute' => 'comur_api_crop', //optional
                         'forceResize' => true, //optional
@@ -55,7 +55,7 @@ class AtletasType extends AbstractType {
                             array(
                                 'maxWidth' => 120,
                                 'maxHeight' => 150,
-                                'useAsFieldImage' => true  //optional
+                                'useAsFieldImage' => false  //optional
                             )
                         )
                     ),
@@ -71,8 +71,8 @@ class AtletasType extends AbstractType {
                         'showLibrary' => false //optional                        
                     ),
                     'cropConfig' => array(
-                        'minWidth' => 280,
-                        'minHeight' => 314,
+                        'minWidth' => 151,
+                        'minHeight' => 151,
                         'aspectRatio' => true, //optional
                         'cropRoute' => 'comur_api_crop', //optional
                         'forceResize' => true, //optional
@@ -80,7 +80,7 @@ class AtletasType extends AbstractType {
                             array(
                                 'maxWidth' => 120,
                                 'maxHeight' => 150,
-                                'useAsFieldImage' => true  //optional
+                                'useAsFieldImage' => false  //optional
                             )
                         )
                     ),
@@ -125,8 +125,8 @@ class AtletasType extends AbstractType {
                         'showLibrary' => false //optional                        
                     ),
                     'cropConfig' => array(
-                        'minWidth' => 400,
-                        'minHeight' => 267,
+                        'minWidth' => 321,
+                        'minHeight' => 204,
                         'aspectRatio' => true, //optional
                         'cropRoute' => 'comur_api_crop', //optional
                         'forceResize' => true, //optional
