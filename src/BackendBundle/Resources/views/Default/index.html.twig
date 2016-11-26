@@ -123,18 +123,20 @@
         </div>
 
         <div class="row">
-            <div class="col-md-3 col-sm-12 col-xs-12">
-                <div class="tile-stats" style="height: 220px;">
-                    <div class="count" style="font-size: 6.5em;color: #337ab7">{{(disc|length)/2}}</div>
-                    <h3>Número de disciplinas </h3>
-                    <p>a participar en el Campeonato</p>
-                    <div style="text-align: right">
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".inf-campeonato-disciplina">Ver</button>
-                        
+        
+        <div class="col-md-3 col-sm-12 col-xs-12">
+                <div class="tile-stats " style="height: 300px;">
+                    <div class="icon"><i class="fa fa-users" style="color: #337ab7"></i>
                     </div>
-                    
+                    <div class="count" style="font-size: 7.5em;color: #337ab7">
+                        <a href="{{ path('atletas_new') }}">{{(disc|length)/2}}</a>
+                    </div>
+                    <h3>Número de disciplinas</h3>
+                    <p>a participar en el Campeonato</p>
+                    <div style="text-align: right"><button type="button" class="btn btn-primary" data-toggle="modal" data-target=".inf-campeonato-disciplina">Ver</button></div>
                 </div>
             </div>
+                                    
             
             <div class="modal fade inf-campeonato-disciplina" tabindex="-1" role="dialog" aria-hidden="true">
                     <div class="modal-dialog modal-lg">
