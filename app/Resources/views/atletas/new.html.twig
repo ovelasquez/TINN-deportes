@@ -432,7 +432,7 @@
                 </div>
             </div>
         </div>
-        
+
         <div id="step-6">
             <h2 class="StepTitle">Observaciones</h2>
 
@@ -507,12 +507,13 @@
             });
             // Smart Wizard
             $('#wizard').smartWizard({
+            autoAdjustHeight: true,  
                 //onLeaveStep: leaveAStepCallback,
                 onFinish: onFinishCallback,
                 // Properties
                 selected: 0, // Selected Step, 0 = first step   
                 keyNavigation: true, // Enable/Disable key navigation(left and right keys are used if enabled)
-                enableAllSteps: false, // Enable/Disable all steps on first load
+                enableAllSteps: true, // Enable/Disable all steps on first load
                 transitionEffect: 'fade', // Effect on navigation, none/fade/slide/slideleft
                 contentURL: null, // specifying content url enables ajax content loading
                 contentURLData: null, // override ajax query parameters
