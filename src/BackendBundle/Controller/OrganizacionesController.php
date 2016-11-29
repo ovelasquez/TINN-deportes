@@ -156,6 +156,16 @@ class OrganizacionesController extends Controller {
                 $em->persist($organizacionDisciplinas);
             }
             $em->flush();
+            
+             //Le asociamos el equipo A a todas las disciplinas                
+            $organizacionCampeonatoDisciplinas = $em->getRepository('BackendBundle:OrganizacionCampeonatoDisciplina')->findByOrganizacion($organizacione->getId());                        
+            foreach ($organizacionCampeonatoDisciplinas as &$valor) {
+                $equipoOrganizacionDisciplinas = new Equipos();               
+                $equipoOrganizacionDisciplinas->setNombre("Equipo A");
+                $equipoOrganizacionDisciplinas->setEquipoOrganizacionCampeonatoDisciplina($valor);
+                $em->persist($equipoOrganizacionDisciplinas);
+            }
+             $em->flush();
 
             return $this->redirectToRoute('organizaciones_show', array('id' => $organizacione->getId()));
         }
