@@ -40,7 +40,7 @@ class AtletasType extends AbstractType {
                         'uploadRoute' => 'comur_api_upload', //optional
                         'uploadUrl' => $pEntity->getUploadRootDirCedula(), // required - see explanation below (you can also put just a dir path)
                         'webDir' => '../web/' . $pEntity->getUploadDirCedula(), // required - see explanation below (you can also put just a dir path)
-                        'fileExt' => '*.jpg;*.gif;*.png;*.jpeg', //optional
+                        'fileExt' => '*.jpg;*.png;*.jpeg', //optional
                         'libraryDir' => null, //optional
                         'libraryRoute' => 'comur_api_image_library', //optional
                         'showLibrary' => false //optional                        
@@ -65,7 +65,7 @@ class AtletasType extends AbstractType {
                         'uploadRoute' => 'comur_api_upload', //optional
                         'uploadUrl' => $pEntity->getUploadRootDirFotografia(), // required - see explanation below (you can also put just a dir path)
                         'webDir' => '../web/' . $pEntity->getUploadDirFotografia(), // required - see explanation below (you can also put just a dir path)
-                        'fileExt' => '*.jpg;*.gif;*.png;*.jpeg', //optional
+                        'fileExt' => '*.jpg;*.png;*.jpeg', //optional
                         'libraryDir' => null, //optional
                         'libraryRoute' => 'comur_api_image_library', //optional
                         'showLibrary' => false //optional                        
@@ -112,14 +112,14 @@ class AtletasType extends AbstractType {
                             )
                         )
                     ),
-                ))*/
-                ->add('contancia', FileType::class, array('required' => false,'label' => 'Constancia de estudio (PDF)'))
+                ))*/   
+                ->add('contancia', FileType::class, array('data_class' => null, 'required' => false,'label' => 'Constancia de estudio (PDF)'))
                 ->add('carnet', 'comur_image', array('required' => false,
                     'uploadConfig' => array(
                         'uploadRoute' => 'comur_api_upload', //optional
                         'uploadUrl' => $pEntity->getUploadRootDirCarnet(), // required - see explanation below (you can also put just a dir path)
                         'webDir' => '../web/' . $pEntity->getUploadDirCarnet(), // required - see explanation below (you can also put just a dir path)
-                        'fileExt' => '*.jpg;*.gif;*.png;*.jpeg', //optional
+                        'fileExt' => '*.jpg;*.png;*.jpeg', //optional
                         'libraryDir' => null, //optional
                         'libraryRoute' => 'comur_api_image_library', //optional
                         'showLibrary' => false //optional                        

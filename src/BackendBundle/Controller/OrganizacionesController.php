@@ -9,6 +9,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use BackendBundle\Entity\Organizaciones;
 use BackendBundle\Form\OrganizacionesType;
 use BackendBundle\Entity\OrganizacionCampeonatoDisciplina;
+use BackendBundle\Entity\Equipos;
 
 /**
  * Organizaciones controller.
@@ -43,6 +44,7 @@ class OrganizacionesController extends Controller {
      * @Method({"GET", "POST"})
      */
     public function newAction(Request $request) {
+        //dump($request);  die();
         $organizacione = new Organizaciones();
         $form = $this->createForm('BackendBundle\Form\OrganizacionesType', $organizacione);
         $form->handleRequest($request);
@@ -50,7 +52,7 @@ class OrganizacionesController extends Controller {
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em->persist($organizacione);
-            //$em->flush();
+          
             //obtenemos las disciplinas asociadas a la organizacion            
             $disciplinasAsociadas = $request->request->get('disciplinas');
 
@@ -62,7 +64,17 @@ class OrganizacionesController extends Controller {
                 $em->persist($organizacionDisciplinas);
             }
             $em->flush();
-
+            
+            //Le asociamos el equipo A a todas las disciplinas                
+            $organizacionCampeonatoDisciplinas = $em->getRepository('BackendBundle:OrganizacionCampeonatoDisciplina')->findByOrganizacion($organizacione->getId());                        
+            foreach ($organizacionCampeonatoDisciplinas as &$valor) {
+                $equipoOrganizacionDisciplinas = new Equipos();               
+                $equipoOrganizacionDisciplinas->setNombre("Equipo A");
+                $equipoOrganizacionDisciplinas->setEquipoOrganizacionCampeonatoDisciplina($valor);
+                $em->persist($equipoOrganizacionDisciplinas);
+            }
+             $em->flush();
+                                                        
             return $this->redirectToRoute('organizaciones_show', array('id' => $organizacione->getId()));
         }
 
@@ -70,12 +82,11 @@ class OrganizacionesController extends Controller {
         //Fijamos el Campeonato por Parameters Camp
         //$_CAMP = $this->container->getParameter('camp');
         //Fijamos El Campeonato por el usuario logueado
-        $_CAMP = $this->getUser()->getCampeonato();  
+        $_CAMP = $this->getUser()->getCampeonato();
         //dump($this->getUser()); die();
-
         //Buscar todas las disciplinas asociadas al campeonato
         $campeonatoDisciplinas = $em->getRepository('BackendBundle:CampeonatoDisciplina')->findByCampeonato($_CAMP);
-       // dump($campeonatoDisciplinas); die();
+        // dump($campeonatoDisciplinas); die();
 
         return $this->render('organizaciones/new.html.twig', array(
                     'organizacione' => $organizacione,
@@ -154,7 +165,7 @@ class OrganizacionesController extends Controller {
         // $_CAMP = $this->container->getParameter('camp');
         //Fijamos El Campeonato por el usuario logueado
         $_CAMP = $this->getUser()->getCampeonato();
-       // dump($this->getUser());
+        // dump($this->getUser());
 
         $campeonatoDisciplinas = $em->getRepository('BackendBundle:CampeonatoDisciplina')->findByCampeonato($_CAMP);
         //Buscar todas las disciplinas asociadas a la organizacion en el campeonato

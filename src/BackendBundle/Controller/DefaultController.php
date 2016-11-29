@@ -22,6 +22,7 @@ class DefaultController extends Controller {
         $dias=0;
         $contCorregir=0;
         $contAprobado=0;
+        $totalConsumidos=0;
 
         if ($this->get('security.context')->isGranted('ROLE_SUPER_ADMIN')) {
             //$atletas = $em->getRepository('BackendBundle:Atletas')->findAll();
