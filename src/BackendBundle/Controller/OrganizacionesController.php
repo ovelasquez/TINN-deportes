@@ -129,7 +129,7 @@ class OrganizacionesController extends Controller {
      * @Route("/{id}/edit", name="organizaciones_edit")
      * @Method({"GET", "POST"})
      */
-    public function editAction(Request $request, Organizaciones $organizacione) {
+    public function editAction(Request $request, Organizaciones $organizacione) {        
         $deleteForm = $this->createDeleteForm($organizacione);
         $editForm = $this->createForm('BackendBundle\Form\OrganizacionesType', $organizacione);
         $editForm->handleRequest($request);
@@ -138,33 +138,39 @@ class OrganizacionesController extends Controller {
         if ($editForm->isSubmitted() && $editForm->isValid()) {
 
             $em->persist($organizacione);
-            //$em->flush();
-            //Buscar todas las disciplinas asociadas a la organizacion en el campeonato y las eliminamos                      
-            $disciplinas = $em->getRepository('BackendBundle:OrganizacionCampeonatoDisciplina')->findByOrganizacion($organizacione->getId());
-            foreach ($disciplinas as &$valor) {
-                $em->remove($valor);
-            }
-            // $em->flush();
-            //obtenemos las disciplinas asociadas a la organizacion            
-            $disciplinasAsociadas = $request->request->get('disciplinas');
-
-            foreach ($disciplinasAsociadas as &$valor) {
-                $organizacionDisciplinas = new OrganizacionCampeonatoDisciplina();
-                $disciplina = $em->getRepository('BackendBundle:Disciplinas')->find($valor);
-                $organizacionDisciplinas->setDisciplina($disciplina);
-                $organizacionDisciplinas->setOrganizacion($organizacione);
-                $em->persist($organizacionDisciplinas);
-            }
-            $em->flush();
             
-             //Le asociamos el equipo A a todas las disciplinas                
-            $organizacionCampeonatoDisciplinas = $em->getRepository('BackendBundle:OrganizacionCampeonatoDisciplina')->findByOrganizacion($organizacione->getId());                        
-            foreach ($organizacionCampeonatoDisciplinas as &$valor) {
-                $equipoOrganizacionDisciplinas = new Equipos();               
-                $equipoOrganizacionDisciplinas->setNombre("Equipo A");
-                $equipoOrganizacionDisciplinas->setEquipoOrganizacionCampeonatoDisciplina($valor);
-                $em->persist($equipoOrganizacionDisciplinas);
+            //Si en el formulario seleccionamos seleccionar disciplinas entonces ejecutamos
+            if ($request->request->get('actualizarDisciplinas')==="si"){                
+                //$em->flush();
+                //Buscar todas las disciplinas asociadas a la organizacion en el campeonato y las eliminamos                      
+                $disciplinas = $em->getRepository('BackendBundle:OrganizacionCampeonatoDisciplina')->findByOrganizacion($organizacione->getId());
+                foreach ($disciplinas as &$valor) {
+                    $em->remove($valor);
+                }
+                // $em->flush();
+                //obtenemos las disciplinas asociadas a la organizacion            
+                $disciplinasAsociadas = $request->request->get('disciplinas');
+
+                foreach ($disciplinasAsociadas as &$valor) {
+                    $organizacionDisciplinas = new OrganizacionCampeonatoDisciplina();
+                    $disciplina = $em->getRepository('BackendBundle:Disciplinas')->find($valor);
+                    $organizacionDisciplinas->setDisciplina($disciplina);
+                    $organizacionDisciplinas->setOrganizacion($organizacione);
+                    $em->persist($organizacionDisciplinas);
+                }
+                $em->flush();
+                
+                //Le asociamos el equipo A a todas las disciplinas                
+                $organizacionCampeonatoDisciplinas = $em->getRepository('BackendBundle:OrganizacionCampeonatoDisciplina')->findByOrganizacion($organizacione->getId());                        
+                foreach ($organizacionCampeonatoDisciplinas as &$valor) {
+                    $equipoOrganizacionDisciplinas = new Equipos();               
+                    $equipoOrganizacionDisciplinas->setNombre("Equipo A");
+                    $equipoOrganizacionDisciplinas->setEquipoOrganizacionCampeonatoDisciplina($valor);
+                    $em->persist($equipoOrganizacionDisciplinas);
+                }
             }
+
+
              $em->flush();
 
             return $this->redirectToRoute('organizaciones_show', array('id' => $organizacione->getId()));
