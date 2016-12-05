@@ -33,6 +33,7 @@ class AtletasController extends Controller {
         } elseif ($this->get('security.context')->isGranted('ROLE_LIGA')) {
             $atletas = $em->getRepository('BackendBundle:Atletas')->findAllByLiga($user->getLiga());
         } elseif ($this->get('security.context')->isGranted('ROLE_ORGANIZACION')) {
+            $estatus=$em->getRepository('BackendBundle:Atletas')->findAllByEstatus(1);
             $atletas = $em->getRepository('BackendBundle:Atletas')->findAllByOrganizacion($user->getOrganizacion());
             $organizacion = $em->getRepository('BackendBundle:Organizaciones')->find($this->getUser()->getOrganizacion());
         } else {

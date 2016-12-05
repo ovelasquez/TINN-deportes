@@ -119,7 +119,7 @@ class Atletas {
    /**
      * @var \Organizaciones
      *
-     * @ORM\ManyToOne(targetEntity="Organizaciones")
+     * @ORM\ManyToOne(targetEntity="Organizaciones", inversedBy="atletas")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="organizacion_id", referencedColumnName="id")
      * })

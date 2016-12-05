@@ -86,6 +86,18 @@ class Organizaciones
      * })
      */
     private $campeonato;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="Atletas", mappedBy="organizacion")
+     */
+    protected $atletas;
+ 
+    public function __construct()
+    {
+        $this->atletas = new ArrayCollection();
+    }
+    
+    
 
 
 
