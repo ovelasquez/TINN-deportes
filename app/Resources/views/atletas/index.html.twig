@@ -25,49 +25,29 @@
 
 {% block body %}
     <br />
-    <table id="datatable-buttons" class="table table-striped table-bordered">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Fotografía</th>
-                <th>Cédula</th>
-                <th>Nombre</th> 
-                <th>Deporte</th> 
-                <th>Estatus</th> 
-                <th >Acciones</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% set cont = 1 %}
-            {% for atleta in atletas %}               
-                <tr>
-                    <td  WIDTH="20" ><a href="{{ path('atletas_show', { 'id': atleta.atleta.id }) }}">{{ atleta.atleta.id }}</a></td>
-                    <td><img src="{{ asset('uploads/atletas/fotos/')}}{{atleta.atleta.fotografia}}"  height="80px" alt="{{ atleta.atleta.primerNombre }}" class="imgage"></td>
-                    <td>{{ atleta.atleta.nacionalidad }}-{{ atleta.atleta.cedula |number_format(0, ',', '.')   }} </td>
-                    <td>{{ atleta.atleta.primerApellido }} {{ atleta.atleta.primerNombre }}</td> 
-                    <td>{{ atleta.equipo.equipoOrganizacionCampeonatoDisciplina.disciplina }}</td> 
-                    <td><button type="button" class="btn 
-                                {% if atleta.atleta.status=="En Proceso"  %}
-                                    btn-info
-                                {% elseif atleta.atleta.status=="Por Corregir" %}
-                                    btn-warning
-                                {% else %}
-                                    btn-success
-                                {% endif %}
-
-                                btn-xs">{{ atleta.atleta.status }}</button></td>    
-                    <td> 
-                        <p>
-                            <a href="{{ path('atletas_show', { 'id': atleta.atleta.id }) }}"><button class="btn btn-xs btn-warning"><i class="fa fa-eye"></i> </button></a> 
-                            <a href="{{ path('atletas_edit', { 'id': atleta.atleta.id }) }}"><button class="btn btn-xs btn-success"><i class="fa fa-pencil"></i> </button></a>                                                 
-                        </p>
-                    </td>                                                                                                                                 
-                </tr>
-                {% set cont = cont +1 %}
-
-            {% endfor %}                            
-        </tbody>
-    </table>
+    <table class="table table-striped">
+                                <thead>
+                                    <tr>                                                 
+                                        <th>Disciplina</th>
+                                        <th>Registrados</th>
+                                        <th>Min. Atletas</th>    
+                                        <th>Max. Atletas</th>
+                                                                            
+                                    </tr>
+                                </thead>
+                                <tbody>                     
+                                    {% for dis in estatus %}                                       
+                                            <tr>                                                                                                                                                                           
+                                                <td>{{ dis.Disciplina }}</td>                           
+                                                <td>{{ dis.Cantidad }}</td> 
+                                                 <td>{{ dis.minimo }}</td> 
+                                                <td>{{ dis.maximo }}</td>                        
+                                                                                              
+                                            </tr>
+                                        
+                                    {% endfor %}                        
+                                </tbody>                        
+                            </table>
     <br/><br/>
 
 

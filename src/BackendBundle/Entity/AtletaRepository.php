@@ -63,7 +63,6 @@ class AtletaRepository extends EntityRepository {
     }
 
     public function findAllByLiga($lig) {
-
         $query = $this->getEntityManager()
                 ->createQuery("SELECT  a  FROM BackendBundle:Atletas a "
                 . " LEFT JOIN BackendBundle:AtletaEquipo ae WITH a.id=ae.atleta "
@@ -74,31 +73,26 @@ class AtletaRepository extends EntityRepository {
                 . " WHERE c.liga=:lig  ORDER BY a.primerNombre ASC");
         $query->setParameter('lig', $lig);
         $entities = $query->getResult();
-
         return $entities;
     }
 
     public function findAllByEstatus($organizacion) {
-        $query = $this->getEntityManager()->createQuery(
-                "SELECT disc.*, cd.minimo  FROM ( "
-              ." SELECT d.nombre, count(d.id), d.id  FROM BackendBundle:Atletas a "
-              . " LEFT JOIN BackendBundle:Organizaciones o WITH o.id=a.organizacion "
-              . " LEFT JOIN BackendBundle:AtletaEquipo ae WITH a.id=ae.atleta "
-              . " LEFT JOIN BackendBundle:Equipos e WITH e.equipo_organizacion_campeonato_disciplina=ae.equipo "
-              . " LEFT JOIN BackendBundle:OrganizacionCampeonatoDisciplina ocd WITH e.equipoOrganizacionCampeonatoDisciplina=ocd.id "
-              . " LEFT JOIN BackendBundle:Disciplinas d WITH d.id=ocd.disciplina "
-              . " WHERE a.organizacion=:organizacion "
-              . " GROUP BY d.id "
-              .") AS disc, BackendBundle:CampeonatoDisciplina cd "
-              . " WHERE cd.disciplina=disc.d.id "
-                );             
-        $query->setParameter('organizacion', $organizacion);
-        $entities=$query->getResult();
-        dump($entities); die();
-
-        return $entities;
+        $conn = $this->getEntityManager()->getConnection();                
+         $sql=
+        'Select disc.Disciplina, disc.Cantidad, cd.minimo, cd.maximo  from (
+            Select  d.nombre Disciplina, count(d.id) Cantidad, d.id Id from atletas a
+                left join organizaciones o on o.id=a.organizacion_id
+                left join atleta_equipo ae on ae.atleta_id=a.id
+                left join equipos        e on e.equipo_organizacion_campeonato_disciplina=ae.equipo_id
+                left join organizacion_campeonato_disciplina ocd on e.equipo_organizacion_campeonato_disciplina=ocd.id
+                left join disciplinas d on ocd.disciplina_id=d.id
+            Where a.organizacion_id=:organizacion
+            Group by d.id
+        ) as disc, campeonato_disciplina cd where cd.disciplina_id = disc.Id';
         
+        $stmt = $conn->prepare($sql);
+        $stmt->execute(array('organizacion' => $organizacion));      
+        return $stmt->fetchAll();              
     }
 
 }
-

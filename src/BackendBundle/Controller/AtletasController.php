@@ -27,13 +27,15 @@ class AtletasController extends Controller {
         $em = $this->getDoctrine()->getManager();
         $user = $this->get('security.context')->getToken()->getUser();
         $organizacion = '';
+        $estatus = array();
 
         if ($this->get('security.context')->isGranted('ROLE_SUPER_ADMIN')) {
             $atletas = $em->getRepository('BackendBundle:Atletas')->findAll();
         } elseif ($this->get('security.context')->isGranted('ROLE_LIGA')) {
             $atletas = $em->getRepository('BackendBundle:Atletas')->findAllByLiga($user->getLiga());
-        } elseif ($this->get('security.context')->isGranted('ROLE_ORGANIZACION')) {
-            $estatus=$em->getRepository('BackendBundle:Atletas')->findAllByEstatus(1);
+        } elseif ($this->get('security.context')->isGranted('ROLE_ORGANIZACION')) {            
+            $estatus = $em->getRepository('BackendBundle:Atletas')->findAllByEstatus($this->getUser()->getOrganizacion());
+            //dump($estatus); die();
             $atletas = $em->getRepository('BackendBundle:Atletas')->findAllByOrganizacion($user->getOrganizacion());
             $organizacion = $em->getRepository('BackendBundle:Organizaciones')->find($this->getUser()->getOrganizacion());
         } else {
@@ -43,6 +45,7 @@ class AtletasController extends Controller {
         return $this->render('atletas/index.html.twig', array(
                     'atletas' => $atletas,
                     'organizacion' => $organizacion,
+                    'estatus' => $estatus,
         ));
     }
 
@@ -123,9 +126,9 @@ class AtletasController extends Controller {
 
                             //Guardar Constacia
                             $file = $atleta->getContancia();
-                            if ($file!==NULL){
-                            $fileName = $this->get('app.file_uploader_constancia')->upload($file);
-                            $atleta->setContancia($fileName);
+                            if ($file !== NULL) {
+                                $fileName = $this->get('app.file_uploader_constancia')->upload($file);
+                                $atleta->setContancia($fileName);
                             }
                             //Atleta persist
                             $em->persist($atleta);
