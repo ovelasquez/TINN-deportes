@@ -34,9 +34,8 @@ class AtletasController extends Controller {
         } elseif ($this->get('security.context')->isGranted('ROLE_LIGA')) {
             $atletas = $em->getRepository('BackendBundle:Atletas')->findAllByLiga($user->getLiga());
         } elseif ($this->get('security.context')->isGranted('ROLE_ORGANIZACION')) {
-            $estatus = $em->getRepository('BackendBundle:Atletas')->findAllByEstatus($this->getUser()->getOrganizacion());
-            
-            $organizacion = $em->getRepository('BackendBundle:Organizaciones')->find($this->getUser()->getOrganizacion());
+            $estatus = $em->getRepository('BackendBundle:Atletas')->findAllByEstatus($this->getUser()->getOrganizacion());            
+            $organizacion = $em->getRepository('BackendBundle:Organizaciones')->find($this->getUser()->getOrganizacion());            
         } else {
             throw $this->createAccessDeniedException("You don't have access to this page!");
         }

@@ -82,7 +82,7 @@ class AtletaRepository extends EntityRepository {
             Select  d.nombre Disciplina, count(d.id) Cantidad, d.id Id from atletas a
                 left join organizaciones o on o.id=a.organizacion_id
                 left join atleta_equipo ae on ae.atleta_id=a.id
-                left join equipos        e on e.equipo_organizacion_campeonato_disciplina=ae.equipo_id
+                left join equipos        e on e.id=ae.equipo_id
                 left join organizacion_campeonato_disciplina ocd on e.equipo_organizacion_campeonato_disciplina=ocd.id
                 left join disciplinas d on ocd.disciplina_id=d.id
             Where a.organizacion_id=:organizacion
