@@ -25,29 +25,43 @@
 
 {% block body %}
     <br />
-    <table class="table table-striped">
-                                <thead>
-                                    <tr>                                                 
-                                        <th>Disciplina</th>
-                                        <th>Registrados</th>
-                                        <th>Min. Atletas</th>    
-                                        <th>Max. Atletas</th>
-                                                                            
-                                    </tr>
-                                </thead>
-                                <tbody>                     
-                                    {% for dis in estatus %}                                       
-                                            <tr>                                                                                                                                                                           
-                                                <td>{{ dis.Disciplina }}</td>                           
-                                                <td>{{ dis.Cantidad }}</td> 
-                                                 <td>{{ dis.minimo }}</td> 
-                                                <td>{{ dis.maximo }}</td>                        
-                                                                                              
-                                            </tr>
-                                        
-                                    {% endfor %}                        
-                                </tbody>                        
-                            </table>
+    <table id="datatable" class="table table-striped table-bordered dataTable no-footer" role="grid" aria-describedby="datatable_info">
+        <thead>
+            <tr>                                                 
+                <th>Disciplina</th>
+                <th>Registrados</th>
+                <th>Min. Atletas</th>    
+                <th>Max. Atletas</th>
+                <th>Nom. Abierta</th>
+                <th>Estatus</th>
+                <th>Atletas</th>
+            </tr>
+        </thead>
+        <tbody>                     
+            {% for dis in estatus %}                                       
+                <tr>                                                                                                                                                                           
+                    <td>{{ dis.Disciplina }}</td>
+                    <td>{{ dis.Cantidad }}</td>
+                    <td>{{ dis.minimo }}</td>
+                    <td>{{ dis.maximo }}</td>
+                    <td>{{ dis.abierto }}</td>                   
+                    <td>                       
+                        {% if dis.Cantidad < dis.minimo %}                           
+                            <button type="button" class="btn btn-danger btn-xs"> Equipo Incompleto</button>
+                        {% elseif ((dis.Cantidad >= dis.minimo) and (dis.maximo>=dis.Cantidad)) %}
+                            <button type="button" class="btn btn-success btn-xs"> Equipo Completo</button>
+                        {% else%}
+                             <button type="button" class="btn btn-warning btn-xs"> Equipo con Reserva</button>
+                        {% endif%}
+                    </td>
+                    <td>
+                        <a href="{{ path('atletas_listar', { 'disciplina': dis.Id }) }}"class="btn btn-primary btn-xs"><i class="fa fa-eye"></i> Ver </a>
+                       
+                    </td>
+                </tr>
+            {% endfor %}                        
+        </tbody>                        
+    </table>
     <br/><br/>
 
 

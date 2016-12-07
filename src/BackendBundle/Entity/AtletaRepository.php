@@ -77,9 +77,8 @@ class AtletaRepository extends EntityRepository {
     }
 
     public function findAllByEstatus($organizacion) {
-        $conn = $this->getEntityManager()->getConnection();                
-         $sql=
-        'Select disc.Disciplina, disc.Cantidad, cd.minimo, cd.maximo  from (
+        $conn = $this->getEntityManager()->getConnection();
+        $sql = 'Select disc.Id,  disc.Disciplina, disc.Cantidad, cd.minimo, cd.maximo, cd.abierto  from (
             Select  d.nombre Disciplina, count(d.id) Cantidad, d.id Id from atletas a
                 left join organizaciones o on o.id=a.organizacion_id
                 left join atleta_equipo ae on ae.atleta_id=a.id
@@ -89,10 +88,23 @@ class AtletaRepository extends EntityRepository {
             Where a.organizacion_id=:organizacion
             Group by d.id
         ) as disc, campeonato_disciplina cd where cd.disciplina_id = disc.Id';
-        
+
         $stmt = $conn->prepare($sql);
-        $stmt->execute(array('organizacion' => $organizacion));      
-        return $stmt->fetchAll();              
+        $stmt->execute(array('organizacion' => $organizacion));
+        return $stmt->fetchAll();
+    }
+
+    public function findAllByAtletasOrganizacionDisciplina($organizacion, $disciplina) {
+        $conn = $this->getEntityManager()->getConnection();
+        $sql = '
+           SELECT a.id, a.nacionalidad, a.cedula, a.primer_apellido, a.primer_nombre, a.fotografia, a.status FROM atletas a
+                LEFT JOIN atleta_equipo ae ON ae.atleta_id=a.id
+                LEFT JOIN equipos e ON ae.equipo_id=e.id
+                LEFT JOIN organizacion_campeonato_disciplina oce ON oce.id=e.equipo_organizacion_campeonato_disciplina
+            WHERE a.organizacion_id=:organizacion AND oce.disciplina_id=:disciplina';
+        $stmt = $conn->prepare($sql);
+        $stmt->execute(array('organizacion' => $organizacion,'disciplina'=>$disciplina));
+        return $stmt->fetchAll();
     }
 
 }

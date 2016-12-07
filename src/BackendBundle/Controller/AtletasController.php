@@ -33,19 +33,47 @@ class AtletasController extends Controller {
             $atletas = $em->getRepository('BackendBundle:Atletas')->findAll();
         } elseif ($this->get('security.context')->isGranted('ROLE_LIGA')) {
             $atletas = $em->getRepository('BackendBundle:Atletas')->findAllByLiga($user->getLiga());
-        } elseif ($this->get('security.context')->isGranted('ROLE_ORGANIZACION')) {            
+        } elseif ($this->get('security.context')->isGranted('ROLE_ORGANIZACION')) {
             $estatus = $em->getRepository('BackendBundle:Atletas')->findAllByEstatus($this->getUser()->getOrganizacion());
-            //dump($estatus); die();
-            $atletas = $em->getRepository('BackendBundle:Atletas')->findAllByOrganizacion($user->getOrganizacion());
+            
             $organizacion = $em->getRepository('BackendBundle:Organizaciones')->find($this->getUser()->getOrganizacion());
         } else {
             throw $this->createAccessDeniedException("You don't have access to this page!");
         }
 
         return $this->render('atletas/index.html.twig', array(
-                    'atletas' => $atletas,
                     'organizacion' => $organizacion,
                     'estatus' => $estatus,
+        ));
+    }
+
+    /**
+     * Lists all Atletas entities.
+     *
+     * @Route("/{disciplina}/listar", name="atletas_listar")
+     * @Method("GET")
+     */
+    public function listarAction($disciplina) {
+        $em = $this->getDoctrine()->getManager();
+        $user = $this->get('security.context')->getToken()->getUser();
+        $organizacion = '';
+        $deporte = '';
+        if ($this->get('security.context')->isGranted('ROLE_SUPER_ADMIN')) {
+            $atletas = $em->getRepository('BackendBundle:Atletas')->findAll();
+        } elseif ($this->get('security.context')->isGranted('ROLE_LIGA')) {
+            $atletas = $em->getRepository('BackendBundle:Atletas')->findAllByLiga($user->getLiga());
+        } elseif ($this->get('security.context')->isGranted('ROLE_ORGANIZACION')) {            
+            $atletas = $em->getRepository('BackendBundle:Atletas')->findAllByAtletasOrganizacionDisciplina($user->getOrganizacion(),intval($disciplina));
+            //dump($atletas); die();
+            $deporte= $em->getRepository('BackendBundle:Disciplinas')->find( intval($disciplina) );
+            $organizacion = $em->getRepository('BackendBundle:Organizaciones')->find($this->getUser()->getOrganizacion());
+        } else {
+            throw $this->createAccessDeniedException("You don't have access to this page!");
+        }
+        return $this->render('atletas/listar.html.twig', array(
+                    'atletas' => $atletas,
+                    'organizacion' => $organizacion,
+                    'deporte' => $deporte,
         ));
     }
 

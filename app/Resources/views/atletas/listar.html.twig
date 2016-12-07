@@ -10,7 +10,7 @@
     <link href="{{ asset('bundles/backend/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css')}}" rel="stylesheet"> 
 {% endblock %}
 {% block Titulo %} {{ organizacion }} {% endblock %}
-{% block Subtitulo %}Atletas Registrados{% endblock %}
+{% block Subtitulo %}Atletas Registrados - Disciplina: {{ deporte.nombre}} {% endblock %}
 {% block cerrar %} href="{{ path('backend_default_index')}}" {% endblock %}    
 
 
@@ -25,14 +25,13 @@
 
 {% block body %}
     <br />
-    <table id="datatable-buttons" class="table table-striped table-bordered">
+   <table id="datatable" class="table table-striped table-bordered dataTable no-footer" role="grid" aria-describedby="datatable_info">
         <thead>
             <tr>
                 <th>Id</th>
                 <th>Fotografía</th>
                 <th>Cédula</th>
-                <th>Nombre</th> 
-                <th>Deporte</th> 
+                <th>Nombre</th>                 
                 <th>Estatus</th> 
                 <th >Acciones</th>
             </tr>
@@ -41,25 +40,23 @@
             {% set cont = 1 %}
             {% for atleta in atletas %}               
                 <tr>
-                    <td  WIDTH="20" ><a href="{{ path('atletas_show', { 'id': atleta.atleta.id }) }}">{{ atleta.atleta.id }}</a></td>
-                    <td><img src="{{ asset('uploads/atletas/fotos/')}}{{atleta.atleta.fotografia}}"  height="80px" alt="{{ atleta.atleta.primerNombre }}" class="imgage"></td>
-                    <td>{{ atleta.atleta.nacionalidad }}-{{ atleta.atleta.cedula |number_format(0, ',', '.')   }} </td>
-                    <td>{{ atleta.atleta.primerApellido }} {{ atleta.atleta.primerNombre }}</td> 
-                    <td>{{ atleta.equipo.equipoOrganizacionCampeonatoDisciplina.disciplina }}</td> 
+                    <td ><a href="{{ path('atletas_show', { 'id': atleta.id }) }}">{{ loop.index }}</a></td>
+                    <td><img src="{{ asset('uploads/atletas/fotos/')}}{{atleta.fotografia}}"  height="80px" alt="{{ atleta.primer_nombre }}" class="imgage"></td>
+                    <td>{{ atleta.nacionalidad }}-{{ atleta.cedula |number_format(0, ',', '.')   }} </td>
+                    <td>{{ atleta.primer_apellido }} {{ atleta.primer_nombre }}</td>                     
                     <td><button type="button" class="btn 
-                                {% if atleta.atleta.status=="En Proceso"  %}
+                                {% if atleta.status=="En Proceso"  %}
                                     btn-info
-                                {% elseif atleta.atleta.status=="Por Corregir" %}
+                                {% elseif atleta.status=="Por Corregir" %}
                                     btn-warning
                                 {% else %}
                                     btn-success
                                 {% endif %}
-
-                                btn-xs">{{ atleta.atleta.status }}</button></td>    
+                                btn-xs">{{ atleta.status }}</button></td>    
                     <td> 
                         <p>
-                            <a href="{{ path('atletas_show', { 'id': atleta.atleta.id }) }}"><button class="btn btn-xs btn-warning"><i class="fa fa-eye"></i> </button></a> 
-                            <a href="{{ path('atletas_edit', { 'id': atleta.atleta.id }) }}"><button class="btn btn-xs btn-success"><i class="fa fa-pencil"></i> </button></a>                                                 
+                            <a href="{{ path('atletas_show', { 'id': atleta.id }) }}"><button class="btn btn-xs btn-warning"><i class="fa fa-eye"></i> </button></a> 
+                            <a href="{{ path('atletas_edit', { 'id': atleta.id }) }}"><button class="btn btn-xs btn-success"><i class="fa fa-pencil"></i> </button></a>                                                 
                         </p>
                     </td>                                                                                                                                 
                 </tr>
@@ -130,7 +127,6 @@
                     });
                 }
             };
-
             TableManageButtons = function () {
                 "use strict";
                 return {
@@ -139,15 +135,11 @@
                     }
                 };
             }();
-
             $('#datatable').dataTable();
-
             $('#datatable-keytable').DataTable({
                 keys: true
             });
-
             $('#datatable-responsive').DataTable();
-
             $('#datatable-scroller').DataTable({
                 ajax: "js/datatables/json/scroller-demo.json",
                 deferRender: true,
@@ -155,13 +147,10 @@
                 scrollCollapse: true,
                 scroller: true
             });
-
             $('#datatable-fixed-header').DataTable({
                 fixedHeader: true
             });
-
             var $datatable = $('#datatable-checkbox');
-
             $datatable.dataTable({
                 'order': [[1, 'asc']],
                 'columnDefs': [
@@ -173,7 +162,6 @@
                     checkboxClass: 'icheckbox_flat-green'
                 });
             });
-
             TableManageButtons.init();
         });
     </script>
