@@ -6,8 +6,10 @@
     <div class="panel-heading">
         <div class="panel-title text-center"><h2>Ingresa a tu <span class="text-primary">Liga</span></h2></div>
     </div>     
+    
     <div class="panel-body" >
-        <div style="display:none" id="login-alert" class="alert alert-danger col-sm-12">{% if error %} {{ error.messageKey|trans(error.messageData, 'security') }}{% endif %}</div>
+        {% if error %}<div id="login-alert" class="alert alert-danger col-sm-12"> {{ error.messageKey|trans(error.messageData, 'security') }}</div>{% endif %}
+    
         <form id="loginform" class="form-horizontal" role="form" action="{{ path("fos_user_security_check") }}" method="post">
         {% if csrf_token %}
             <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />

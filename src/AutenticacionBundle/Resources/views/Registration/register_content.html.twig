@@ -4,38 +4,95 @@
     <div class="panel-heading">
         <div class="panel-title text-center"><h2>Registrate en tu <span class="text-primary">Liga</span></h2></div>
     </div>     
-    <div class="panel-body" >
-        <div style="display:none" id="login-alert" class="alert alert-danger col-sm-12"></div>
-        {{ form_start(form, {'method': 'post', 'action': path('fos_user_registration_register'), 'attr': {'class': 'fos_user_registration_register'}}) }}
-{{ form_widget(form) }}
-       <div class="registroCampo">
-    {{ form_errors(form) }}
-</div>
-<div class="registroCampo">
-    {{ form_row(form.nombre,{'attr': {'class': ''}}) }}
-</div>
-<div class="registroCampo">
-    {{ form_row(form.apellido,{'attr': {'class': ''}}) }}
-</div>
-<div class="registroCampo">
-    {{ form_row(form.email,{'attr': {'class': ''}}) }}
-</div>
-<div class="registroCampo">
-    {{ form_row(form.username,{'attr': {'class': ''}}) }}
-</div>
-<div class="registroCampo ">
-    {{ form_row(form.plainPassword) }}            
-</div>        
+    <div class="panel-body" >       
+        {{ form_start(form, {'method': 'post', 'action': path('fos_user_registration_register'), 'attr': {'class': 'form-horizontal form-label-left'}}) }}      
+        {{ form_errors(form) }}
 
-<div>
-    <input type="submit" value="{{ 'registration.submit'|trans }}" />
-</div>
-{{ form_end(form) }}  
+        <div class="form-group">
+            <label class="control-label col-md-4 col-sm-4 col-xs-12"
+                   for="first-name">{{ form_label(form.email) }} <span
+                    class="required">*</span>
+            </label>
+            <div class="col-md-8 col-sm-8 col-xs-12">{{form_widget(form.email,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}</div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-4 col-sm-4 col-xs-12"
+                   for="first-name">{{ form_label(form.username) }} <span
+                    class="required">*</span>
+            </label>
+            <div class="col-md-8 col-sm-8 col-xs-12">{{form_widget(form.username,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}</div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-4 col-sm-4 col-xs-12"
+                   for="first-name">{{ form_label(form.plainPassword.first) }} <span
+                    class="required">*</span>
+            </label>
+            <div class="col-md-8 col-sm-8 col-xs-12">{{form_widget(form.plainPassword.first,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}</div>
+            
+        </div>
+        
+         <div class="form-group">
+            <label class="control-label col-md-4 col-sm-4 col-xs-12"
+                   for="first-name">{{ form_label(form.plainPassword.second) }} <span
+                    class="required">*</span>
+            </label>
+            
+            <div class="col-md-8 col-sm-8 col-xs-12">{{form_widget(form.plainPassword.second,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}</div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-4 col-sm-4 col-xs-12"
+                   for="first-name">{{ form_label(form.nombre) }} <span
+                    class="required">*</span>
+            </label>
+            <div class="col-md-8 col-sm-8 col-xs-12">{{form_widget(form.nombre,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}</div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-4 col-sm-4 col-xs-12"
+                   for="first-name">{{ form_label(form.apellido) }} <span
+                    class="required">*</span>
+            </label>
+            <div class="col-md-8 col-sm-8 col-xs-12">{{form_widget(form.apellido,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}</div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-4 col-sm-4 col-xs-12"
+                   for="first-name">{{ form_label(form.liga) }} <span
+                    class="required">*</span>
+            </label>
+            <div class="col-md-8 col-sm-8 col-xs-12">{{form_widget(form.liga,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}</div>
+        </div>
+        
+        <div class="form-group">
+            <label class="control-label col-md-4 col-sm-4 col-xs-12"
+                   for="first-name">{{ form_label(form.campeonato) }} <span
+                    class="required">*</span>
+            </label>
+            <div class="col-md-8 col-sm-8 col-xs-12">{{form_widget(form.campeonato,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}</div>
+        </div>
+        
+        <div class="form-group">
+            <label class="control-label col-md-4 col-sm-4 col-xs-12"
+                   for="first-name">{{ form_label(form.organizacion) }} <span
+                    class="required">*</span>
+            </label>
+            <div class="col-md-8 col-sm-8 col-xs-12">{{form_widget(form.organizacion,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}</div>
+        </div>
+        
+        <div class="form-group">
+            <label class="control-label col-md-4 col-sm-4 col-xs-12"
+                   for="first-name">{{ form_label(form.roles) }} <span
+                    class="required">*</span>
+            </label>
+            <div class="col-md-8 col-sm-8 col-xs-12">{{form_widget(form.roles,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}</div>
+        </div>               
+        <div>
+            <input type="submit" value="{{ 'registration.submit'|trans }}" />
+        </div>        
+
+        {{ form_end(form) }}  
     </div>                     
 </div> 
-
-
-
-
-
-

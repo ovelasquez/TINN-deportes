@@ -11,9 +11,9 @@ class RegistrationType extends AbstractType {
         $builder
                 ->add('nombre', null, array('label' => 'Nombre'))
                 ->add('apellido', null, array('label' => 'Apellido'))
-                ->add('liga', null, array('label' => 'liga')) 
-                ->add('campeonato', null, array('label' => 'campeonato'))
-                ->add('organizacion', null, array('label' => 'organizacion'))                    
+                ->add('liga', null, array('label' => 'Liga')) 
+                ->add('campeonato', null, array('label' => 'Campeonato'))
+                ->add('organizacion', null, array('label' => 'Organizacion'))                    
                 ->add('roles', 'choice', array(
                     'placeholder' => 'Seleccione',
                     'multiple'=>true,

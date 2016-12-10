@@ -1,0 +1,17 @@
+{% extends "AutenticacionBundle::layout.html.twig" %}
+
+{% trans_default_domain 'FOSUserBundle' %}
+
+{% block fos_user_content %}
+
+    <div class="panel white-alpha-90" >
+        <div class="panel-heading">
+            <div class="panel-title text-center"><h2>Confirma tu <span class="text-primary">Cuenta</span></h2></div>
+        </div>     
+        <div class="panel-body" >
+            <p>{{ 'registration.check_email'|trans({'%email%': user.email}) }}</p>
+
+        </div>                     
+    </div> 
+
+{% endblock fos_user_content %}
