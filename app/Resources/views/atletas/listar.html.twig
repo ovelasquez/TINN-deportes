@@ -43,7 +43,7 @@
                     <td ><a href="{{ path('atletas_show', { 'id': atleta.id }) }}">{{ loop.index }}</a></td>
                     <td><img src="{{ asset('uploads/atletas/fotos/')}}{{atleta.fotografia}}"  height="80px" alt="{{ atleta.primer_nombre }}" class="imgage"></td>
                     <td>{{ atleta.nacionalidad }}-{{ atleta.cedula |number_format(0, ',', '.')   }} </td>
-                    <td>{{ atleta.primer_apellido }} {{ atleta.primer_nombre }}</td>                     
+                    <td>{{ atleta.primer_apellido|title }} {{ atleta.primer_nombre|title }}</td>                     
                     <td><button type="button" class="btn 
                                 {% if atleta.status=="En Proceso"  %}
                                     btn-info

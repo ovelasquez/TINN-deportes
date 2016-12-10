@@ -34,7 +34,7 @@
                 <img class="img-responsive avatar-view"  src="{{ asset('uploads/atletas/fotos/')}}{{atleta.fotografia}}" alt="{{ atleta.primerNombre }}" title="{{ atleta.primerNombre }}">
             </div>
         </div>
-        <h3>{{ atleta.primerApellido }} {{ atleta.primerNombre }}</h3>
+        <h3>{{ atleta.primerApellido|title }} {{ atleta.primerNombre|title }}</h3>
 
         <ul class="list-unstyled user_data">
             <li><i class="fa fa-map-marker user-profile-icon"></i> {{ atleta.nacionalidad }}-{{ atleta.cedula |number_format(0, ',', '.')   }} </li>        
@@ -65,19 +65,19 @@
                             </tr>
                             <tr>
                                 <th>Primer Apellido</th>
-                                <td>{{ atleta.primerApellido }}</td>
+                                <td>{{ atleta.primerApellido|title }}</td>
                             </tr>
                             <tr>
                                 <th>Segundo Apellido</th>
-                                <td>{{ atleta.segundoApellido }}</td>
+                                <td>{{ atleta.segundoApellido|title}}</td>
                             </tr>
                             <tr>
                                 <th>Primer Nombre</th>
-                                <td>{{ atleta.primerNombre }}</td>
+                                <td>{{ atleta.primerNombre|title }}</td>
                             </tr>
                             <tr>
                                 <th>Segundo Nombre</th>
-                                <td>{{ atleta.segundoNombre }}</td>
+                                <td>{{ atleta.segundoNombre|title }}</td>
                             </tr>
                             <tr>
                                 <th>Fecha Nacimiento</th>
@@ -116,7 +116,7 @@
                             </tr>
                             <tr>
                                 <th>Departamento</th>
-                                <td>{{ atleta.departamento }}</td>
+                                <td>{{ atleta.departamento|title }}</td>
                             </tr>
                             <tr>
                                 <th>Año de Ingreso</th>
@@ -161,7 +161,7 @@
                             </tr>
                             <tr>
                                 <th>Nombre Contacto</th>
-                                <td>{{ atleta.contactoNombre }}</td>
+                                <td>{{ atleta.contactoNombre|title }}</td>
                             </tr>
                             <tr>
                                 <th>Teléfono Contacto</th>
