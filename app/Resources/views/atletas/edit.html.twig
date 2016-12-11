@@ -15,9 +15,9 @@
         <button type="submit" class="btn btn-danger">Eliminar</button>
         {{ form_end(delete_form) }}
     </li>
-    <li><a  class="btn btn-primary" href="{{ path('atletas_index')}}" style="  padding: 6px 12px;  color: white;">Volver </a>
+    <li><a  class="btn btn-primary" href="{{path('default_organizacion_equipo', { 'id': organizacion.id})}}}}" style="  padding: 6px 12px;  color: white;">Volver </a>
     </li>    
-    
+
 {% endblock %}         
 
 {% block body %} 
@@ -178,8 +178,8 @@
 
                 <div class="form-group">
                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="telefono">Teléfono <span class="required">*</span></label>
-                    <div id="form-step-0" class="col-md-6 col-sm-6 col-xs-12" data-toggle="validator">
-                        {{form_widget(edit_form.telefono,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}  
+                    <div id="form-step-0" class="col-md-6 col-sm-6 col-xs-12" data-toggle="validator">                       
+                         {{form_widget(edit_form.telefono,{ 'attr': {'data-format':'+58 (ddd) ddd-dddd','class': 'bfh-phone form-control col-md-7 col-xs-12'} } ) }}
                     </div>
                 </div>
             </div>
@@ -307,7 +307,8 @@
                 <div class="form-group">
                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="contactoTelefono">Teléfono Contacto <span class="required">*</span></label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                        {{form_widget(edit_form.contactoTelefono,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}  
+                         {{form_widget(edit_form.contactoTelefono,{ 'attr': {'data-format':'+58 (ddd) ddd-dddd','class': 'bfh-phone form-control col-md-7 col-xs-12'} } ) }}
+                         
                     </div>
                 </div>
             </div>
@@ -401,24 +402,24 @@
                                 </thead>
                                 <tbody>
                                     {% for disciplina in disciplinas %}
-                                                            
-                                            {% if disciplina[2][0] is defined %} 
-                                                <tr>                                    
-                                                    <td WIDTH="40%"> {{ disciplina[1] }}</td>
-                                                    <td>
-                                                        {% if disciplina[2] is defined %}
-                                                            
-                                                                <div id="equipos" style="clear: both" class="equipos">  
-                                                                        {% for equipo in disciplina[2] %}
-                                                                        <input type='checkbox' style="margin-left:10px" name="equipos[]" class='  equiposCk' {% if (equipo[2]==1)%} checked="checked" {% endif%} value="{{ equipo[0] }}"/> 
-                                                                        {% endfor %}
-                                                                        
-                                                                </div>
-                                                        {% endif%}
-                                                    </td>
-                                                </tr>                                                                     
-                                                {% set i = i+1 %}                                    
-                                            {% endif%}                                        
+
+                                        {% if disciplina[2][0] is defined %} 
+                                            <tr>                                    
+                                                <td WIDTH="40%"> {{ disciplina[1] }}</td>
+                                                <td>
+                                                    {% if disciplina[2] is defined %}
+
+                                                        <div id="equipos" style="clear: both" class="equipos">  
+                                                            {% for equipo in disciplina[2] %}
+                                                                <input type='checkbox' style="margin-left:10px" name="equipos[]" class='  equiposCk' {% if (equipo[2]==1)%} checked="checked" {% endif%} value="{{ equipo[0] }}"/> 
+                                                            {% endfor %}
+
+                                                        </div>
+                                                    {% endif%}
+                                                </td>
+                                            </tr>                                                                     
+                                            {% set i = i+1 %}                                    
+                                        {% endif%}                                        
                                     {% endfor %}                                      
                                 </tbody>
                             </table>
@@ -440,6 +441,7 @@
                     </div>
                 </div>
             </div>
+
             <div id="Status" class="form-step-5" role="form">
                 <div class="form-group">
                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="status">status <span class="required">*</span></label>
@@ -448,6 +450,8 @@
                     </div>
                 </div>
             </div>
+
+
 
         </div>
 
@@ -465,22 +469,30 @@
 
     <!-- jQuery Smart Wizard -->
     <script src="{{ asset('bundles/backend/vendors/jQuery-Smart-Wizard/js/jquery.smartWizard.js')}}"></script>
+     <script src="{{ asset('bundles/backend/vendors/BootstrapFormHelpers/js/bootstrap-formhelpers.min.js')}}"></script>
 
     <!-- Imagenes -->
     <script src="{{ asset('bundles/backend/vendors/holder.js') }}"></script>
     <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
     <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script> 
 
+    <!-- Validar inputs -->
+    <script src="{{ asset('bundles/backend/vendors/BootstrapFormHelpers/js/bootstrap-formhelpers.min.js')}}"></script>
 
     <script type="text/javascript">
         $(document).ready(function () {
             // Smart Wizard         
-            //Selecionamos la organizacion en el Campo Institucion
-            //$("#atletas_organizacion").val("{{org}}");
-            $("#Organizacion").hide();
-            // $("#atletas_status").val("En Proceso");
-            $("#Status").hide();
 
+            $("#Organizacion").hide();
+           
+            
+            if ({{estatus}}==0  ) { 
+                $("#Status").hide();
+            } else {
+                 $("#Status").show();
+            }
+
+           
 
             $(".disciplinas").click(function () {
                 var isC = $(this).prop('checked');
@@ -501,7 +513,7 @@
 
 
             $('#wizard').smartWizard({
-                autoAdjustHeight: true,                
+                autoAdjustHeight: true,
                 //onLeaveStep: leaveAStepCallback,
                 onFinish: onFinishCallback,
                 // Properties

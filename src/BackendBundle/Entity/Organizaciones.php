@@ -9,7 +9,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  * Organizaciones
  *
  * @ORM\Table(name="organizaciones", indexes={@ORM\Index(name="campeonatos_organizaciones_fk", columns={"campeonato_id"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="BackendBundle\Entity\OrganizacionesRepository")
  */
 class Organizaciones
 {

@@ -94,7 +94,7 @@ class AtletaRepository extends EntityRepository {
         return $stmt->fetchAll();
     }
 
-    public function findAllByAtletasOrganizacionDisciplina($organizacion, $disciplina) {
+    public function findAllByAtletasOrganizacionDisciplina($organizacion, $disciplina) {       
         $conn = $this->getEntityManager()->getConnection();
         $sql = '
            SELECT a.id, a.nacionalidad, a.cedula, a.primer_apellido, a.primer_nombre, a.fotografia, a.status FROM atletas a

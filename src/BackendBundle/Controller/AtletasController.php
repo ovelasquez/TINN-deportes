@@ -34,8 +34,8 @@ class AtletasController extends Controller {
         } elseif ($this->get('security.context')->isGranted('ROLE_LIGA')) {
             $atletas = $em->getRepository('BackendBundle:Atletas')->findAllByLiga($user->getLiga());
         } elseif ($this->get('security.context')->isGranted('ROLE_ORGANIZACION')) {
-            $estatus = $em->getRepository('BackendBundle:Atletas')->findAllByEstatus($this->getUser()->getOrganizacion());            
-            $organizacion = $em->getRepository('BackendBundle:Organizaciones')->find($this->getUser()->getOrganizacion());            
+            $estatus = $em->getRepository('BackendBundle:Atletas')->findAllByEstatus($this->getUser()->getOrganizacion());
+            $organizacion = $em->getRepository('BackendBundle:Organizaciones')->find($this->getUser()->getOrganizacion());
         } else {
             throw $this->createAccessDeniedException("You don't have access to this page!");
         }
@@ -49,22 +49,23 @@ class AtletasController extends Controller {
     /**
      * Lists all Atletas entities.
      *
-     * @Route("/{disciplina}/listar", name="atletas_listar")
+     * @Route("/{disciplina}/{organizacion}/listar", name="atletas_listar")
      * @Method("GET")
      */
-    public function listarAction($disciplina) {
+    public function listarAction($disciplina, $organizacion) {
         $em = $this->getDoctrine()->getManager();
         $user = $this->get('security.context')->getToken()->getUser();
-        $organizacion = '';
         $deporte = '';
         if ($this->get('security.context')->isGranted('ROLE_SUPER_ADMIN')) {
             $atletas = $em->getRepository('BackendBundle:Atletas')->findAll();
         } elseif ($this->get('security.context')->isGranted('ROLE_LIGA')) {
-            $atletas = $em->getRepository('BackendBundle:Atletas')->findAllByLiga($user->getLiga());
-        } elseif ($this->get('security.context')->isGranted('ROLE_ORGANIZACION')) {            
-            $atletas = $em->getRepository('BackendBundle:Atletas')->findAllByAtletasOrganizacionDisciplina($user->getOrganizacion(),intval($disciplina));
-            //dump($atletas); die();
-            $deporte= $em->getRepository('BackendBundle:Disciplinas')->find( intval($disciplina) );
+            $atletas = $em->getRepository('BackendBundle:Atletas')->findAllByAtletasOrganizacionDisciplina(intval($organizacion), intval($disciplina));
+
+            $deporte = $em->getRepository('BackendBundle:Disciplinas')->find(intval($disciplina));
+            $organizacion = $em->getRepository('BackendBundle:Organizaciones')->find($organizacion);
+        } elseif ($this->get('security.context')->isGranted('ROLE_ORGANIZACION')) {
+            $atletas = $em->getRepository('BackendBundle:Atletas')->findAllByAtletasOrganizacionDisciplina($user->getOrganizacion(), intval($disciplina));
+            $deporte = $em->getRepository('BackendBundle:Disciplinas')->find(intval($disciplina));
             $organizacion = $em->getRepository('BackendBundle:Organizaciones')->find($this->getUser()->getOrganizacion());
         } else {
             throw $this->createAccessDeniedException("You don't have access to this page!");
@@ -222,24 +223,27 @@ class AtletasController extends Controller {
         if ($this->get('security.context')->isGranted('ROLE_SUPER_ADMIN')) {
             
         } elseif ($this->get('security.context')->isGranted('ROLE_LIGA')) {
-            
+            $_ORG = $atleta->getOrganizacion()->getId();
         } elseif ($this->get('security.context')->isGranted('ROLE_ORGANIZACION')) {
             //Verifica que solo la universidad que registro el atleta lo pueda ver
             if (!($atleta->getOrganizacion()->getId() == $this->getUser()->getOrganizacion())) {
                 throw $this->createAccessDeniedException("You don't have access to this page!");
             }
+
+            $_ORG = $this->getUser()->getOrganizacion();
         } else {
             throw $this->createAccessDeniedException("You don't have access to this page!");
         }
+
         $deleteForm = $this->createDeleteForm($atleta);
-        $organizacion = '';
+
         $em = $this->getDoctrine()->getManager();
         $problema = array();
 
-        //Fijamos La Organización por el usuario logueado, especificamente para el caso de las orgazizaciones  no aplica a administradores ni ligas
-        $_ORG = $this->getUser()->getOrganizacion();
+        //dump($organizacion); die();
+
         if ($_ORG != Null) {
-            $organizacion = $em->getRepository('BackendBundle:Organizaciones')->find($this->getUser()->getOrganizacion());
+            $organizacion = $em->getRepository('BackendBundle:Organizaciones')->find($_ORG);
         }
 
         $aEq = $em->getRepository('BackendBundle:AtletaEquipo')->findBy(array("atleta" => $atleta->getId()));
@@ -262,6 +266,7 @@ class AtletasController extends Controller {
      */
     public function editAction(Request $request, Atletas $atleta) {
 
+
         $constOriginal = $atleta->getContancia();
 
         if (is_file($this->getParameter('atletas_constancia_directory') . '/' . $constOriginal)):
@@ -270,17 +275,17 @@ class AtletasController extends Controller {
             );
         endif;
 
-
-
         if ($this->get('security.context')->isGranted('ROLE_SUPER_ADMIN')) {
             
         } elseif ($this->get('security.context')->isGranted('ROLE_LIGA')) {
-            
+            $_ORG = $atleta->getOrganizacion()->getId();
         } elseif ($this->get('security.context')->isGranted('ROLE_ORGANIZACION')) {
             //Verifica que solo la universidad que registro el atleta lo pueda ver
             if (!($atleta->getOrganizacion()->getId() == $this->getUser()->getOrganizacion())) {
                 throw $this->createAccessDeniedException("You don't have access to this page!");
             }
+
+            $_ORG = $this->getUser()->getOrganizacion();
         } else {
             throw $this->createAccessDeniedException("You don't have access to this page!");
         }
@@ -299,10 +304,11 @@ class AtletasController extends Controller {
         $organizacion = '';
         //Fijamos La Organización por el usuario logueado, especificamente para el caso de las orgazizaciones
         // no aplica a administradores ni ligas
-        $_ORG = $this->getUser()->getOrganizacion();
+
         if ($_ORG != Null) {
-            $organizacion = $em->getRepository('BackendBundle:Organizaciones')->find($this->getUser()->getOrganizacion());
+            $organizacion = $em->getRepository('BackendBundle:Organizaciones')->find($_ORG);
         }
+
 
         $idsD = array();
         $idsDb = array();
@@ -481,6 +487,13 @@ class AtletasController extends Controller {
             return $this->redirectToRoute('atletas_show', array('id' => $atleta->getId()));
         }
 
+
+        if ($this->get('security.context')->isGranted('ROLE_LIGA')) {
+            $estatus = 1;
+        } else {
+            $estatus = 0;
+        }
+
         return $this->render('atletas/edit.html.twig', array(
                     'atleta' => $atleta,
                     'edit_form' => $editForm->createView(),
@@ -491,6 +504,7 @@ class AtletasController extends Controller {
                     'organizacion' => $organizacion,
                     'org' => $_ORG,
                     'urlConstOld' => $constOriginal,
+                    'estatus' => $estatus,
         ));
     }
 

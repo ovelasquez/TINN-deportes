@@ -1,14 +1,17 @@
 {% extends 'gentelella-home.html.twig' %} 
 {% block title %} DeportesTinn | Inicio {% endblock %}
 {% block body %}
+    
+    {# ROLE LIGA - ADMINISTRADOR DE LA LIGA #}
+    
     {% if is_granted('ROLE_LIGA') %}       
         <div class="row">
-
+                                               
             <div class="col-md-55">
                 <div class="x_panel ui-ribbon-container " style="height: 220px;">
                     <div class="ui-ribbon-wrapper">
                         <div class="ui-ribbon" style="background-color: #a94442;">
-                            Días
+                          {{totalConsumidos}}  Días
                         </div>
                     </div>
                     <div class="x_title" style="margin-bottom: 0px;">
@@ -18,9 +21,9 @@
                     <div class="x_content">
 
                         <div style="text-align: center; margin-bottom: 0px">
-                            <span class="chart" data-percent="20">
+                            <span class="chart" data-percent="{{dias}}">
                                 <span class="percent">20</span>
-                                <canvas height="110" width="110"></canvas></span>
+                                <canvas height="100" width="100"></canvas></span>
                         </div>
 
                         <p class="name_title">Porcentaje de ejecución</p>
@@ -28,6 +31,10 @@
                     </div>
                 </div>
             </div>
+            
+            
+            
+            
 
             <div class="col-md-55">
                 <div class="tile-stats" style="height: 220px;">
@@ -40,7 +47,6 @@
             </div>
 
             {% for cam in camp %}
-
                 <div class="col-md-55" style="">
                     <div class="" style="display: block;padding: 4px;margin-bottom: 20px;background-color: #fff;border: 1px solid #ddd;border-radius: 4px; text-align: center">
                         <div class="image view view-first" style="text-align: center">
@@ -49,13 +55,12 @@
                                 <p>{{cam.nombre}}</p>
                                 <div class="tools tools-bottom" style="margin: 90px 0 0 0;">
                                     <a href="{{ path('campeonatos_edit', { 'id': cam.id }) }}"><i class="fa fa-pencil"></i></a>
-
                                 </div>
-
                             </div>
                         </div>
                         <div class="caption">
-                            <p>{{cam.nombre}}</p>
+                            <a href="{{ path('default_organizacion', { 'id': cam.id }) }}"><p>{{cam.nombre}}</p></a>
+                            
                         </div>
                     </div>
                 </div>
@@ -63,6 +68,9 @@
             {% endfor %}      
 
         </div>
+            
+            
+{# ROLE ORGANIZACION - ADMINISTRADOR DE LA UNIVERSIDAD #}            
 
     {% elseif is_granted('ROLE_ORGANIZACION')   %}
         <div class="row">
@@ -124,12 +132,12 @@
 
         <div class="row">
 
-            <div class="col-md-3 col-sm-12 col-xs-12">
+            <div class="col-md-6 col-sm-12 col-xs-12">
                 <div class="tile-stats " style="height: 300px;">
                     <div class="icon"><i class="fa fa-soccer-ball-o" style="color: #337ab7"></i>
                     </div>
                     <div class="count" style="font-size: 7.5em;color: #337ab7">
-                        <a href="{{ path('atletas_new') }}">{{(disc|length)/2}}</a>
+                        <a href="#">{{(disc|length)/2}}</a>
                     </div>
                     <h3>Número de disciplinas</h3>
                     <p>a participar en el Campeonato</p>

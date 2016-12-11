@@ -7,7 +7,7 @@
     <li>
         <a  class="btn btn-success" href="{{ path('atletas_edit', { 'id': atleta.id }) }}" style="  padding: 6px 12px;  color: white;">Editar </a>
     </li>
-    <li><a  class="btn btn-primary" href="{{ path('atletas_index')}}" style="  padding: 6px 12px;  color: white;">Volver </a>
+    <li><a  class="btn btn-primary" href="{{ path('default_organizacion_equipo', { 'id': atleta.organizacion.id})}}" style="  padding: 6px 12px;  color: white;">Volver </a>
     </li>    
     
 {% endblock %}  

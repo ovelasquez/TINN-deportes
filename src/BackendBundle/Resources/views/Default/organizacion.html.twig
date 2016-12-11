@@ -1,0 +1,175 @@
+{% extends 'gentelella.html.twig' %}     
+{% block title %} Campeonatos {% endblock %}
+{% block Titulo %} {{campeonato.nombre}} {% endblock %}
+{% block Subtitulo %} Información del <small>Campeonato</small> {% endblock %} 
+{% block cerrar %} href="{{ path('campeonatos_index')}}" {% endblock %}                  
+{% block body %}
+    <div class="row">
+        <div class="col-md-6 col-sm-12 col-xs-12">
+            <div class="tile-stats " style="height: 335px;">
+                <div class="icon"><i class="fa fa-university" style="color: #337ab7"></i>
+                </div>
+                <div class="count" style="font-size: 7.5em;color: #337ab7">
+                    <a href="{{ path('organizaciones_index') }}">{{organizaciones|length}}</a>
+                </div>
+                <h3>Universidades Registradas</h3>
+                <p>En el campeonato</p>
+                <div style="text-align: right"><a href="{{ path('organizaciones_new') }}"  class="btn btn-sm btn-primary " type="button">Agregar Universidad +</a></div>
+            </div>
+        </div>
+        <div class="col-md-6 col-sm-12 col-xs-12">
+            <div class="tile-stats " style="height: 160px;">
+                <div class="icon"><i class="fa fa-check " style="color: rgba(38,185,154,0.88)"></i>
+                </div>
+                <div class="count" style="color: rgba(38,185,154,0.88)">{{universidadesConfirmadas|length}}</div>
+                <h3>Número de Universidades </h3>
+                <p>Confirmadas</p>
+                <div style="text-align: right"><button type="button" class="btn btn-primary" data-toggle="modal" data-target=".universidadesConfirmadas">Ver</button></div>                
+            </div>
+            <div class="tile-stats " style="height: 160px;">
+                <div class="icon"><i class="fa fa-exclamation-triangle" style="color: rgba(243,156,18,0.88);"></i>
+                </div>
+                <div class="count" style="color: rgba(243,156,18,0.88);">{{universidadesPorConfirmar|length}}</div>
+                <h3>Número de Universidades </h3>
+                <p>Por Confirmar.</p>
+                <div style="text-align: right"><button type="button" class="btn btn-primary" data-toggle="modal" data-target=".universidadesPorConfirmar">Ver</button></div>
+            </div>
+            <div class="tile-stats " style="height: 160px;">
+                <div class="icon"><i class="fa fa-exclamation-circle" style="color: rgba(215, 40, 40, 0.9);"></i>
+                </div>
+                <div class="count" style="color: rgba(215, 40, 40, 0.9);">{{universidadesSinUsuario|length}}</div>
+                <h3>Número de Universidades </h3>
+                <p>Sin Usuarios</p>
+                <div style="text-align: right"><button type="button" class="btn btn-primary" data-toggle="modal" data-target=".universidadesSinUsuario">Ver</button></div>
+
+            </div>
+        </div>
+
+        <div class="modal fade universidadesConfirmadas" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
+                        </button>
+                        <h4 class="modal-title" id="myModalLabel">Campeonato - Universidades Confirmadas</h4>
+                    </div>
+                    <div class="modal-body">
+                        <h4>Detalles</h4>
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Universidad</th>
+                                    <th>Abreviatura</th>                                    
+                                    <th>Usuario</th>
+                                    <th>Email</th>
+                                    <th>Atletas</th>
+                                </tr>
+                            </thead>
+                            <tbody>                     
+                                {% for uC in universidadesConfirmadas %}                                   
+                                    <tr>  
+                                        <th>{{ loop.index }}</th>                                                                                           
+                                        <td><a href="{{ path('organizaciones_show', { 'id': uC.id }) }}">{{uC.universidad }}</a></td>
+                                        <td>{{ uC.abreviatura }}</td>
+                                        <td>{{ uC.usuario }}</td>
+                                        <td>{{ uC.email }}</td>
+                                        <td><a href="{{ path('default_organizacion_equipo', { 'id': uC.id }) }}">Ver</a></td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="modal fade universidadesPorConfirmar" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
+                        </button>
+                        <h4 class="modal-title" id="myModalLabel">Campeonato - Universidades Por Confirmar</h4>
+                    </div>
+                    <div class="modal-body">
+                        <h4>Detalles</h4>
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Universidad</th>
+                                    <th>Abreviatura</th>                                    
+                                    <th>Usuario</th>
+                                    <th>Email</th>                                     
+                                </tr>
+                            </thead>
+                            <tbody>                     
+                                {% for uC in universidadesPorConfirmar %}                                   
+                                    <tr>  
+                                        <th>{{ loop.index }}</th>
+                                        <td>{{uC.universidad }}</td>
+                                        <td>{{ uC.abreviatura }}</td>
+                                        <td>{{ uC.usuario }}</td>
+                                        <td>{{ uC.email }}</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade universidadesSinUsuario" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
+                        </button>
+                        <h4 class="modal-title" id="myModalLabel">Campeonato - Universidades Sin Usuarios</h4>
+                    </div>
+                    <div class="modal-body">
+                        <h4>Detalles</h4>
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Universidad</th>
+                                    <th>Abreviatura</th>                                    
+                                    <th>Usuario</th>
+                                    <th>Email</th>                                     
+                                </tr>
+                            </thead>
+                            <tbody>                     
+                                {% for uC in universidadesSinUsuario %}                                   
+                                    <tr>  
+                                        <th>{{ loop.index }}</th>
+                                        <td>{{uC.nombre }}</td>
+                                        <td>{{ uC.abreviatura }}</td>
+                                        <td>{{ uC.responsable }}</td>
+                                        <td>{{ uC.email }}</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}

@@ -55,7 +55,7 @@
                         {% endif%}
                     </td>
                     <td>
-                        <a href="{{ path('atletas_listar', { 'disciplina': dis.Id }) }}"class="btn btn-primary btn-xs"><i class="fa fa-eye"></i> Ver </a>
+                        <a href="{{ path('atletas_listar', { 'disciplina': dis.Id, 'organizacion': organizacion.id}) }}"class="btn btn-primary btn-xs"><i class="fa fa-eye"></i> Ver </a>
                        
                     </td>
                 </tr>
