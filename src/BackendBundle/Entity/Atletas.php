@@ -170,21 +170,21 @@ class Atletas {
     /**
      * @var string
      *
-     * @ORM\Column(name="altura", type="decimal", precision=10, scale=0, nullable=false)
+     * @ORM\Column(name="altura", type="decimal", precision=10, scale=0, nullable=true)
      */
     private $altura;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="peso", type="decimal", precision=10, scale=0, nullable=false)
+     * @ORM\Column(name="peso", type="decimal", precision=10, scale=0, nullable=true)
      */
     private $peso;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="tipo_sangre", type="string", length=10, nullable=false)
+     * @ORM\Column(name="tipo_sangre", type="string", length=10, nullable=true)
      */
     private $tipoSangre;
 
@@ -198,14 +198,14 @@ class Atletas {
     /**
      * @var string
      *
-     * @ORM\Column(name="contacto_nombre", type="string", length=255, nullable=false)
+     * @ORM\Column(name="contacto_nombre", type="string", length=255, nullable=true)
      */
     private $contactoNombre;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="contacto_telefono", type="string", length=255, nullable=false)
+     * @ORM\Column(name="contacto_telefono", type="string", length=255, nullable=true)
      */
     private $contactoTelefono;
 

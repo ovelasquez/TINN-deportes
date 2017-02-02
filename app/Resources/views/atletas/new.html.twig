@@ -272,10 +272,11 @@
         </div>
         <div id="step-3">
             <h2 class="StepTitle">Datos Médicos</h2>
+            <h2 class="StepTitle">Datos no obligatorios</h2>
 
             <div class="form-step-2" role="form" data-toggle="validator">
                 <div class="form-group">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="altura">Altura <span class="required">*</span></label>
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="altura">Altura <span class="required"></span></label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
                         {{form_widget(form.altura,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}  
                     </div>
@@ -284,7 +285,7 @@
 
             <div class="form-step-2" role="form" data-toggle="validator">    
                 <div class="form-group">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="peso">Peso <span class="required">*</span></label>
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="peso">Peso <span class="required"></span></label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
                         {{form_widget(form.peso,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}  
                     </div>
@@ -292,7 +293,7 @@
             </div>
             <div class="form-step-2" role="form" data-toggle="validator">
                 <div class="form-group">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="tipoSangre">Tipo de Sangre <span class="required">*</span></label>
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="tipoSangre">Tipo de Sangre <span class="required"></span></label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
                         {{form_widget(form.tipoSangre,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}  
                     </div>
@@ -308,7 +309,7 @@
             </div>
             <div class="form-step-2" role="form" data-toggle="validator">
                 <div class="form-group">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="contactoNombre">Nombre Contacto <span class="required">*</span></label>
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="contactoNombre">Nombre Contacto <span class="required"></span></label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
                         {{form_widget(form.contactoNombre,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} } ) }}  
                     </div>
@@ -316,7 +317,7 @@
             </div>
             <div class="form-step-2" role="form" data-toggle="validator">
                 <div class="form-group">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="contactoTelefono">Teléfono Contacto <span class="required">*</span></label>
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="contactoTelefono">Teléfono Contacto <span class="required"></span></label>
                     <div id="form-step-0" class="col-md-6 col-sm-6 col-xs-12" data-toggle="validator">
                         {{form_widget(form.contactoTelefono,{ 'attr': {'data-format':'+58 (ddd) ddd-dddd','class': 'bfh-phone form-control col-md-7 col-xs-12'} } ) }}
                     </div>
@@ -440,6 +441,7 @@
 
         <div id="step-6">
             <h2 class="StepTitle">Observaciones</h2>
+            <h2 class="StepTitle">Datos no obligatorios</h2>
 
             <div class="form-step-5" role="form" data-toggle="validator">
                 <div class="form-group">

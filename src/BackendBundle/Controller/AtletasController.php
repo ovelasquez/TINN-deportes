@@ -265,8 +265,6 @@ class AtletasController extends Controller {
      * @Method({"GET", "POST"})
      */
     public function editAction(Request $request, Atletas $atleta) {
-
-
         $constOriginal = $atleta->getContancia();
 
         if (is_file($this->getParameter('atletas_constancia_directory') . '/' . $constOriginal)):
@@ -348,10 +346,6 @@ class AtletasController extends Controller {
             }
 
         endif;
-
-
-
-
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
 
@@ -517,6 +511,7 @@ class AtletasController extends Controller {
     public function deleteAction(Request $request, Atletas $atleta) {
         $form = $this->createDeleteForm($atleta);
         $form->handleRequest($request);
+        
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
