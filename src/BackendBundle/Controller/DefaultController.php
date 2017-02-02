@@ -139,7 +139,7 @@ class DefaultController extends Controller {
             }
         }
 
-        //dump($universidadesSinUsuario); die();
+        //  dump($universidadesConfirmadas); die();
         return $this->render('BackendBundle:Default:organizacion.html.twig', array(
                     'id' => $id,
                     'campeonato' => $campeonato,
@@ -160,7 +160,7 @@ class DefaultController extends Controller {
         $estatus = $em->getRepository('BackendBundle:Atletas')->findAllByEstatus($id);
         $organizacion = $em->getRepository('BackendBundle:Organizaciones')->find($id);
 
-       //dump($estatus); die();
+        //dump($estatus); die();
         return $this->render('atletas/index.html.twig', array(
                     'organizacion' => $organizacion,
                     'estatus' => $estatus,
