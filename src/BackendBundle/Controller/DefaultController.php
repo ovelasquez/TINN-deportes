@@ -63,8 +63,8 @@ class DefaultController extends Controller {
             //$datetime1 = ($camp->getInicio());
             // dump($camp->getInicio()); die();
 
-            $datetime2 = new \DateTime('2016-12-16');
-            $datetime1 = new \DateTime('2016-11-21');
+            $datetime2 = new \DateTime('2016-02-07');
+            $datetime1 = new \DateTime('2016-02-02');
             $interval = $datetime1->diff($datetime2);
             $totalDias = $interval->format('%R%a');
 
