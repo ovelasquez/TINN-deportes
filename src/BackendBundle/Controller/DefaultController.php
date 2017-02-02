@@ -66,15 +66,19 @@ class DefaultController extends Controller {
             $datetime2 = new \DateTime('2017-02-07');
             $datetime1 = new \DateTime('2017-02-02');
             $interval = $datetime1->diff($datetime2);
-            $totalDias = $interval->format('%R%a');
+            $totalDias = $interval->format('%R%a');           
 
             $datetime22 = (new \DateTime("now"));
             $datetime11 = ($camp->getInicio());
-            $interval = $datetime11->diff($datetime22);
+            
+            $interval = $datetime1->diff($datetime22);
             $totalConsumidos = $interval->format('%R%a');
 
-            if ($totalConsumidos > 0)
+            if ($totalConsumidos > 0) {
                 $dias = $totalConsumidos * 100 / $totalDias;
+            } else {
+                $dias=0;
+            }
             // if ($dias > 100)  $dias = 100;
         } else {
             throw $this->createAccessDeniedException(":( No tienes acceso para ingresar a esta área!");
