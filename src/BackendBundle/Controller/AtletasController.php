@@ -70,7 +70,7 @@ class AtletasController extends Controller {
         } else {
             throw $this->createAccessDeniedException("You don't have access to this page!");
         }
-         dump($atletas); 
+        
         return $this->render('atletas/listar.html.twig', array(
                     'atletas' => $atletas,
                     'organizacion' => $organizacion,
