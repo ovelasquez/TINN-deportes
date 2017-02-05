@@ -70,10 +70,30 @@ class AtletasController extends Controller {
         } else {
             throw $this->createAccessDeniedException("You don't have access to this page!");
         }
+         dump($atletas); 
         return $this->render('atletas/listar.html.twig', array(
                     'atletas' => $atletas,
                     'organizacion' => $organizacion,
                     'deporte' => $deporte,
+        ));
+    }
+
+    /**
+     * Lists all Atletas entities.
+     *
+     * @Route("/{organizacion}/listar_por_corregir", name="atletas_listar_por_corregir")
+     * @Method("GET")
+     */
+    public function listarPorCorregirAction($organizacion) {       
+        $em = $this->getDoctrine()->getManager();
+       
+        $atletas = $em->getRepository('BackendBundle:Atletas')->findBy(array('organizacion'=>$organizacion,'status'=>'Por Corregir'));
+        $organizacion = $em->getRepository('BackendBundle:Organizaciones')->find($organizacion);       
+        dump($atletas); 
+        return $this->render('atletas/listar_corregir.html.twig', array(
+                    'atletas' => $atletas,
+                    'organizacion' => $organizacion,
+                    
         ));
     }
 
@@ -511,7 +531,7 @@ class AtletasController extends Controller {
     public function deleteAction(Request $request, Atletas $atleta) {
         $form = $this->createDeleteForm($atleta);
         $form->handleRequest($request);
-        
+
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();

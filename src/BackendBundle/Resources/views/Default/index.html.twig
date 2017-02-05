@@ -31,11 +31,7 @@
                     </div>
                 </div>
             </div>
-            
-            
-            
-            
-
+                                               
             <div class="col-md-55">
                 <div class="tile-stats" style="height: 220px;">
                     <div class="icon"><i class="fa fa-trophy" style="color: #337ab7"></i> </div>
@@ -98,7 +94,9 @@
                 <div class="tile-stats " style="height: 145px;">
                     <div class="icon"><i class="fa fa-exclamation-triangle" style="color: rgba(243,156,18,0.88);"></i>
                     </div>
-                    <div class="count" style="color: rgba(243,156,18,0.88);">{{contCorregir}}</div>
+                    <div class="count" style="color: rgba(243,156,18,0.88);">
+                        <a href="{{ path('atletas_listar_por_corregir', { 'organizacion': organizacion }) }}">{{contCorregir}}</a>
+                        </div>
                     <h3>Número de atletas </h3>
                     <p>Por corregir.</p>
                 </div>

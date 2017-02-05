@@ -16,6 +16,7 @@ class DefaultController extends Controller {
         $em = $this->getDoctrine()->getManager();
         $camp = array();
         $atletas = array();
+        $atletasPorCorregir = array();
         $disc = array();
         $numa = 0;
         $datetime2 = "";
@@ -35,14 +36,15 @@ class DefaultController extends Controller {
             $totalConsumidos = $this->TotalDias($liga->getInicio(), (new \DateTime("now")));
             if ($totalConsumidos > 0)
                 $dias = $totalConsumidos * 100 / $totalDias;
-
             $camp = $em->getRepository('BackendBundle:Campeonatos')->findAll(array("liga" => $liga));
         } elseif ($this->get('security.context')->isGranted('ROLE_ORGANIZACION')) {
+
             $atletas = $em->getRepository('BackendBundle:Atletas')->findByOrganizacion($user->getOrganizacion());
             //Contammos cuantos atletas estan por corregir y aprobados
             foreach ($atletas as &$valor) {
                 if ($valor->getStatus() === "Por Corregir") {
                     $contCorregir++;
+                    //$atletasPorCorregir[] = $valor;
                 } elseif ($valor->getStatus() === "Aprobado") {
                     $contAprobado++;
                 }
@@ -55,9 +57,7 @@ class DefaultController extends Controller {
 //              array_push($ocd,$valor);
 //            }  
 //                        dump($ocd); die();
-
             $camp = $em->getRepository('BackendBundle:Campeonatos')->find($this->getUser()->getCampeonato());
-
             //Tiempo restante del periodo del campeonato 
             //$datetime2 = ($camp->getFin());
             //$datetime1 = ($camp->getInicio());
@@ -66,18 +66,18 @@ class DefaultController extends Controller {
             $datetime2 = new \DateTime('2017-02-07');
             $datetime1 = new \DateTime('2017-02-02');
             $interval = $datetime1->diff($datetime2);
-            $totalDias = $interval->format('%R%a');           
+            $totalDias = $interval->format('%R%a');
 
             $datetime22 = (new \DateTime("now"));
             $datetime11 = ($camp->getInicio());
-            
+
             $interval = $datetime1->diff($datetime22);
             $totalConsumidos = $interval->format('%R%a');
 
             if ($totalConsumidos > 0) {
                 $dias = $totalConsumidos * 100 / $totalDias;
             } else {
-                $dias=0;
+                $dias = 0;
             }
             // if ($dias > 100)  $dias = 100;
         } else {
@@ -94,7 +94,9 @@ class DefaultController extends Controller {
                     'inicio' => $datetime1,
                     'fin' => $datetime2,
                     'contCorregir' => $contCorregir,
+                    //'atletasPorCorregir' => $atletasPorCorregir,
                     'contAprobado' => $contAprobado,
+                    'organizacion' => $user->getOrganizacion(),
         ));
     }
 
