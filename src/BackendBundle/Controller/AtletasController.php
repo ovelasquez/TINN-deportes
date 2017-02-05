@@ -89,7 +89,7 @@ class AtletasController extends Controller {
        
         $atletas = $em->getRepository('BackendBundle:Atletas')->findBy(array('organizacion'=>$organizacion,'status'=>'Por Corregir'));
         $organizacion = $em->getRepository('BackendBundle:Organizaciones')->find($organizacion);       
-        dump($atletas); 
+        
         return $this->render('atletas/listar_corregir.html.twig', array(
                     'atletas' => $atletas,
                     'organizacion' => $organizacion,
